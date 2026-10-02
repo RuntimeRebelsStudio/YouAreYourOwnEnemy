@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://dfk7k8tfmrt8f"]
+
+[ext_resource type="PackedScene" uid="uid://capn4vk57wyrm" path="res://scenes/track/track_manager.tscn" id="1_0wkb6"]
+[ext_resource type="PackedScene" uid="uid://40itcwpclq2x" path="res://scenes/track/track_chunk.tscn" id="2_f8fyy"]
+[ext_resource type="PackedScene" uid="uid://fl6p213rq5yr" path="res://scenes/player/player.tscn" id="3_wbupf"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_lvxji"]
+
+[sub_resource type="Sky" id="Sky_gmlin"]
+sky_material = SubResource("ProceduralSkyMaterial_lvxji")
+
+[sub_resource type="Environment" id="Environment_dovo2"]
+background_mode = 2
+background_energy_multiplier = 1.25
+sky = SubResource("Sky_gmlin")
+
+[node name="Main" type="Node3D" unique_id=1849983776]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1921526997]
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=332621836]
+environment = SubResource("Environment_dovo2")
+
+[node name="TrackManager" parent="." unique_id=2094744761 node_paths=PackedStringArray("player") instance=ExtResource("1_0wkb6")]
+player = NodePath("../Player")
+chunk_scene = ExtResource("2_f8fyy")
+chunk_length = null
+render_distance = null
+seed_value = null
+
+[node name="Player" parent="." unique_id=2363110 instance=ExtResource("3_wbupf")]

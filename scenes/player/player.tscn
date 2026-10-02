@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://fl6p213rq5yr"]
+
+[ext_resource type="PackedScene" uid="uid://cofhwm6htaeve" path="res://scenes/player/CarModels/FBX/Car_2_4.fbx" id="1_8afob"]
+[ext_resource type="Script" uid="uid://cp4d32mwdkrwk" path="res://scenes/player/player.gd" id="1_dovo2"]
+[ext_resource type="Script" uid="uid://cblatua2kpm6u" path="res://scenes/player/camera_follow.gd" id="3_gmlin"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xrivr"]
+size = Vector3(1, 1, 2.2661743)
+
+[node name="Player" type="CharacterBody3D" unique_id=2363110]
+script = ExtResource("1_dovo2")
+
+[node name="Car_2_4" parent="." unique_id=29056164 instance=ExtResource("1_8afob")]
+transform = Transform3D(-0.99943006, 0, -0.033757083, 0, 1, 0, 0.033757083, 0, -0.99943006, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2000487688]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5006081, -0.039215088)
+shape = SubResource("BoxShape3D_xrivr")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1105554538]
+transform = Transform3D(1, 0, 0, 0, 0.9848076, 0.17364818, 0, -0.17364816, 0.9848077, 0, 2.5, 5)
+script = ExtResource("3_gmlin")
