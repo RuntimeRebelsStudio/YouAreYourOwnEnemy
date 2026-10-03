@@ -11,7 +11,7 @@ size = Vector3(1.0810852, 0.43115234, 0.2562561)
 
 [node name="Fence" type="StaticBody3D" unique_id=384178719]
 script = ExtResource("1_22en1")
-max_scale = 2.0
+max_scale = 4.0
 
 [node name="fence" parent="." unique_id=947928132 instance=ExtResource("1_7g223")]
 

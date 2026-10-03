@@ -2,7 +2,8 @@ extends StaticBody3D
 
 @export var road_texture: Texture2D          # Hier ziehen wir die Textur im Inspector rein
 @export var texture_repeat_distance: float = 4.0 # Alle wieviel Meter sich die Textur wiederholt
-@export var obstacle_scenes: Array[PackedScene] = []
+@export var obstacle_scenes: Array[PackedScene] = [] # Für 3D-Hindernisse (Steine, Bäume)
+@export var patch_scenes: Array[PackedScene] = []    # Für Bodenflächen (Gras, Öl, Decals)
 
 @onready var mesh_instance: MeshInstance3D = $MeshInstance
 @onready var collision_shape: CollisionShape3D = $CollisionShape
@@ -77,10 +78,36 @@ func generate_chunk(start_s: float, length: float) -> void:
 
 	if array_mesh.get_faces().size() > 0:
 		collision_shape.shape = array_mesh.create_trimesh_shape()
-		
-	# --- FBX-OBJEKTE SEED-BASIERT PLATZIEREN ---
+	
+	
+	
+	# =========================================================
+	# 1. BODENFLÄCHEN SPAWNEN (Gras, Öllachen, Decals)
+	# =========================================================
+	if patch_scenes.size() > 0:
+		var patch_step := 10.0 # Alle 10 Meter auf Gras/Öl prüfen
+		var current_patch_s : float = ceil(start_s / patch_step) * patch_step
+
+		while current_patch_s < end_s:
+			var p_info := TrackMath.get_patch_info(current_patch_s, patch_scenes.size())
+			if p_info.get("has_patch", false):
+				var chosen_patch: PackedScene = patch_scenes[p_info.type_index]
+				
+				spawn_obstacle_at(
+					current_patch_s, 
+					p_info.offset_ratio, 
+					chosen_patch, 
+					p_info.rotation_deg, 
+					p_info.scale_ratio_x, 
+					p_info.scale_ratio_z
+				)
+			current_patch_s += patch_step	
+	
+	# =========================================================
+	# 2. 3D-HINDERNISSE SPAWNEN (Steine, Bäume, Kisten)
+	# =========================================================
 	if obstacle_scenes.size() > 0:
-		var check_step := 12.0
+		var check_step := 12.0 # Alle 12 Meter auf 3D-Hindernisse prüfen
 		var current_obs_s : float = ceil(start_s / check_step) * check_step
 
 		while current_obs_s < end_s:
@@ -88,12 +115,14 @@ func generate_chunk(start_s: float, length: float) -> void:
 			if info.get("has_obstacle", false):
 				var chosen_scene: PackedScene = obstacle_scenes[info.type_index]
 				
-				var rot_deg: float = info.get("rotation_deg", 0.0)
-				var sc_ratio: float = info.get("scale_ratio", 0.5)
-				
-				# Spawnen mit Rotation und Skalierung
-				spawn_obstacle_at(current_obs_s, info.offset_ratio, chosen_scene, rot_deg, sc_ratio)
-				
+				spawn_obstacle_at(
+					current_obs_s, 
+					info.offset_ratio, 
+					chosen_scene, 
+					info.rotation_deg, 
+					info.scale_ratio_x, 
+					info.scale_ratio_z
+				)
 			current_obs_s += check_step
 
 func add_quad_with_uv(st: SurfaceTool, 
@@ -114,48 +143,49 @@ func add_quad_with_uv(st: SurfaceTool,
 	
 	
 	
-func spawn_obstacle_at(s: float, offset_ratio: float, scene_to_spawn: PackedScene, extra_rotation_deg: float = 0.0, scale_ratio: float = 0.5) -> void:
+func spawn_obstacle_at(s: float, offset_ratio: float, scene_to_spawn: PackedScene, extra_rotation_deg: float = 0.0, scale_ratio_x: float = 0.5, scale_ratio_z: float = 0.5) -> void:
 	if not scene_to_spawn:
 		return
 
 	var idx := int(s / TrackMath.step_size)
 	TrackMath.ensure_calculated_up_to(idx + 1)
-	var current_width := TrackMath.widths[idx]
-	
+
 	var center_pos := TrackMath.points[idx]
 	var norm := TrackMath.normals[idx]
 	var half_w := TrackMath.widths[idx] / 2.0
-	
-	var final_scale_factor : float
-	# Bei sehr engen Abschnitten (z. B. < 8m) Skalierung begrenzen und Kanten freihalten
-	if current_width < 8.0:
-		final_scale_factor = minf(final_scale_factor, 1.5) # Nicht riesig werden lassen
-		offset_ratio = clampf(offset_ratio, -0.4, 0.4) # Eher mittig/kontrolliert halten
+
 	var spawn_pos := center_pos + norm * (half_w * offset_ratio)
 
 	var obs := scene_to_spawn.instantiate() as Node3D
 	add_child(obs)
 	obs.global_position = spawn_pos
 
-	# 1. Ausrichtung an der Straße
+	# 1. Ausrichtung an der Fahrtrichtung der Straße
 	var tan := TrackMath.tangents[idx]
 	if tan.length() > 0:
 		obs.look_at(obs.global_position + tan, Vector3.UP)
 
-	# 2. Lokale Rotation anwenden
+	# 2. Lokale Rotation
 	obs.rotate_object_local(Vector3.UP, deg_to_rad(extra_rotation_deg))
 
-	# 3. INDIVIDUELLE SKALIERUNG BERECHNEN UND ANWENDEN
+	# 3. MIN/MAX SKALIERUNG BERECHNEN
 	var min_s: float = 1.0
 	var max_s: float = 1.0
 
-	# Prüft, ob das Objekt min_scale / max_scale Variablen definiert hat
 	if "min_scale" in obs:
 		min_s = obs.min_scale
 	if "max_scale" in obs:
 		max_s = obs.max_scale
 
-	# Interpoliert individuell für dieses Objekt
-	if current_width >= 8.0: final_scale_factor = lerp(min_s, max_s, scale_ratio)
-		
-	obs.scale = Vector3.ONE * final_scale_factor
+	# X und Z unabhängig voneinander berechnen
+	var final_scale_x : float = lerp(min_s, max_s, scale_ratio_x)
+	var final_scale_z : float = lerp(min_s, max_s, scale_ratio_z)
+
+	# 4. HÖHE (Y) ANPASSEN
+	var final_scale_y := 1.0
+	if not (obs is GrassPatch):
+		# Für 3D-Hindernisse (Steine/Kisten): Höhe als Mittelwert nehmen,
+		# damit Objekte nicht extrem verzerrt/platt wirken
+		final_scale_y = (final_scale_x + final_scale_z) / 2.0
+
+	obs.scale = Vector3(final_scale_x, final_scale_y, final_scale_z)

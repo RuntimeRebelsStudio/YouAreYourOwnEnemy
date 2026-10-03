@@ -148,7 +148,7 @@ static func get_obstacle_info(s: float, asset_count: int) -> Dictionary:
 	if asset_count == 0:
 		return {"has_obstacle": false}
 		
-	if s < 30.0:
+	if s < 20.0:
 		return {"has_obstacle": false} # Sicherer Startbereich
 
 	# --- 1. SCHWIERIGKEITS-SKALIERUNG BERECHNEN ---
@@ -187,16 +187,65 @@ static func get_obstacle_info(s: float, asset_count: int) -> Dictionary:
 			var rot_hash := posmod(hash(step_id * 9182731 ^ (noise_obs_spawn.seed + 123)), 100000)
 			var rotation_deg := (rot_hash % 3600) / 10.0
 
-			# 6. Skalierungs-Verhältnis (0.0 bis 1.0)
-			var scale_hash := posmod(hash(step_id * 482711 ^ (noise_obs_spawn.seed + 222)), 100000)
-			var scale_ratio := (scale_hash % 1001) / 1000.0
+			# 6. UNABHÄNGIGE SKALIERUNG FÜR X UND Z (0.0 bis 1.0)
+			var scale_x_hash := posmod(hash(step_id * 482711 ^ (noise_obs_spawn.seed + 222)), 100000)
+			var scale_z_hash := posmod(hash(step_id * 619283 ^ (noise_obs_spawn.seed + 333)), 100000)
+
+			var scale_ratio_x := (scale_x_hash % 1001) / 1000.0
+			var scale_ratio_z := (scale_z_hash % 1001) / 1000.0
 
 			return {
 				"has_obstacle": true,
 				"offset_ratio": offset_ratio,
 				"type_index": selected_index,
 				"rotation_deg": rotation_deg,
-				"scale_ratio": scale_ratio
+				"scale_ratio_x": scale_ratio_x,
+				"scale_ratio_z": scale_ratio_z
 			}
 
 	return {"has_obstacle": false}
+	
+	
+	
+# Unabhängige Abfrage für Bodenflächen (Gras, Öl, Decals)
+static func get_patch_info(s: float, patch_count: int) -> Dictionary:
+	if patch_count == 0:
+		return {"has_patch": false}
+
+	if s < 20.0: # Kleiner Startpuffer
+		return {"has_patch": false}
+
+	var step_id := int(s)
+
+	# 1. Deterministische Spawn-Chance für Bodenflächen (z. B. 35% Chance alle 10m)
+	var spawn_hash := posmod(hash(step_id * 104729 ^ (noise_obs_spawn.seed + 777)), 100000)
+	var spawn_chance := (spawn_hash % 100) / 100.0
+
+	if spawn_chance < 0.35: # 35% Chance
+		# 2. Welches Patch-Asset (Gras 1, Gras 2, Öl, etc.)
+		var type_hash := posmod(hash(step_id * 224737 ^ (noise_obs_spawn.seed + 888)), 100000)
+		var selected_index := type_hash % patch_count
+
+		# 3. Querposition auf der Straße (-0.8 bis +0.8)
+		var pos_hash := posmod(hash(step_id * 334829 ^ (noise_obs_spawn.seed + 999)), 100000)
+		var normalized_pos := (pos_hash % 1001) / 1000.0
+		var offset_ratio := (normalized_pos * 1.6) - 0.8
+
+		# 4. Zufallswinkel (0 bis 360 Grad)
+		var rot_hash := posmod(hash(step_id * 445801 ^ (noise_obs_spawn.seed + 111)), 100000)
+		var rotation_deg := (rot_hash % 3600) / 10.0
+
+		# 5. Getrennte Skalierung für X und Z
+		var scale_x_hash := posmod(hash(step_id * 556817 ^ (noise_obs_spawn.seed + 222)), 100000)
+		var scale_z_hash := posmod(hash(step_id * 667829 ^ (noise_obs_spawn.seed + 333)), 100000)
+
+		return {
+			"has_patch": true,
+			"offset_ratio": offset_ratio,
+			"type_index": selected_index,
+			"rotation_deg": rotation_deg,
+			"scale_ratio_x": (scale_x_hash % 1001) / 1000.0,
+			"scale_ratio_z": (scale_z_hash % 1001) / 1000.0
+		}
+
+	return {"has_patch": false}
