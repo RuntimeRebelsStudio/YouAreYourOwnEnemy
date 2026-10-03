@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://682oje5enrdc"]
 
-[ext_resource type="Script" uid="uid://dosulgy7rvsfk" path="res://scenes/player/car.gd" id="1_janxj"]
+[ext_resource type="Script" uid="uid://coiv88be6no1f" path="res://scenes/player/car.gd" id="1_janxj"]
 [ext_resource type="PackedScene" uid="uid://bbblyk4e73i3" path="res://scenes/player/Cars/ice_cream_truck_1.tscn" id="2_db5j1"]
 
 [node name="Car" type="VehicleBody3D" unique_id=1032363274]
@@ -9,28 +9,28 @@ car_model_scene = ExtResource("2_db5j1")
 
 [node name="Front_Right" type="VehicleWheel3D" parent="." unique_id=546566244]
 use_as_steering = true
-wheel_roll_influence = 0.7
+wheel_roll_influence = 1.0
 suspension_stiffness = 50.0
 damping_compression = 1.9
 damping_relaxation = 2.0
 
 [node name="Front_Left" type="VehicleWheel3D" parent="." unique_id=1584493874]
 use_as_steering = true
-wheel_roll_influence = 0.7
+wheel_roll_influence = 1.0
 suspension_stiffness = 50.0
 damping_compression = 1.9
 damping_relaxation = 2.0
 
 [node name="Back_Left" type="VehicleWheel3D" parent="." unique_id=916281560]
 use_as_traction = true
-wheel_roll_influence = 0.7
+wheel_roll_influence = 1.0
 suspension_stiffness = 50.0
 damping_compression = 1.9
 damping_relaxation = 2.0
 
 [node name="Back_Right" type="VehicleWheel3D" parent="." unique_id=477384155]
 use_as_traction = true
-wheel_roll_influence = 0.7
+wheel_roll_influence = 1.0
 suspension_stiffness = 50.0
 damping_compression = 1.9
 damping_relaxation = 2.0
