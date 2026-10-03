@@ -1,11 +1,21 @@
 [gd_scene format=3 uid="uid://40itcwpclq2x"]
 
 [ext_resource type="Script" uid="uid://bpfhsmflvjlc5" path="res://scenes/track/track_chunk.gd" id="1_c1u5b"]
-[ext_resource type="Texture2D" uid="uid://cdygqffwr1f66" path="res://assets/track/Road007_1K-JPG_Color.jpg" id="2_lmhfc"]
+[ext_resource type="Texture2D" uid="uid://cdygqffwr1f66" path="res://assets/track/Road007_1K-JPG_Color.jpg" id="2_joh5a"]
+[ext_resource type="PackedScene" uid="uid://w18hi4430yl8" path="res://scenes/obstacle/fence.tscn" id="3_joh5a"]
+[ext_resource type="PackedScene" uid="uid://bpg7mlyejki43" path="res://scenes/obstacle/rocks-low.tscn" id="4_hvr2s"]
+[ext_resource type="PackedScene" uid="uid://cdbh3i6uulvxm" path="res://scenes/obstacle/tree.tscn" id="5_06kto"]
+[ext_resource type="PackedScene" uid="uid://c41qrik1upfj0" path="res://scenes/obstacle/character-archer.tscn" id="6_hvr2s"]
+[ext_resource type="PackedScene" uid="uid://ctqlorav2l0je" path="res://scenes/obstacle/flag.tscn" id="7_06kto"]
+[ext_resource type="PackedScene" uid="uid://b1uiwfsgaerr" path="res://scenes/obstacle/stones.tscn" id="8_3ujw3"]
+[ext_resource type="PackedScene" uid="uid://ddinchd45rroe" path="res://scenes/obstacle/grass_patch.tscn" id="9_544tm"]
+[ext_resource type="PackedScene" uid="uid://b5a0ee58quw6w" path="res://scenes/obstacle/dirt_patch.tscn" id="10_556pl"]
 
 [node name="TrackChunk" type="StaticBody3D" unique_id=443274225]
 script = ExtResource("1_c1u5b")
-road_texture = ExtResource("2_lmhfc")
+road_texture = ExtResource("2_joh5a")
+obstacle_scenes = Array[PackedScene]([ExtResource("6_hvr2s"), ExtResource("3_joh5a"), ExtResource("7_06kto"), ExtResource("4_hvr2s"), ExtResource("8_3ujw3"), ExtResource("5_06kto"), ExtResource("5_06kto")])
+patch_scenes = Array[PackedScene]([ExtResource("9_544tm"), ExtResource("9_544tm"), ExtResource("10_556pl"), ExtResource("10_556pl")])
 
 [node name="MeshInstance" type="MeshInstance3D" parent="." unique_id=1918029248]
 
