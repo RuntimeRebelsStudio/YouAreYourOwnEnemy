@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://c2yoq0dr5pqrg"]
+
+[ext_resource type="Script" uid="uid://dawbdelns5vi6" path="res://scenes/obstacle/obstacle.gd" id="1_nph86"]
+[ext_resource type="PackedScene" uid="uid://dymthyly7tumy" path="res://assets/obstacle/FBX-xmas/snowman.fbx" id="2_sfuhg"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6v33g"]
+size = Vector3(0.68847656, 1.046814, 0.5246582)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8ri8m"]
+size = Vector3(0.70288086, 1.0634766, 0.54577637)
+
+[node name="Snowman" type="StaticBody3D" unique_id=2006115782]
+script = ExtResource("1_nph86")
+max_scale = 4.0
+
+[node name="snowman" parent="." unique_id=946478320 instance=ExtResource("2_sfuhg")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1663737926]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0014648438, 0.53604126, -0.033081055)
+shape = SubResource("BoxShape3D_6v33g")
+
+[node name="HitBox" type="Area3D" parent="." unique_id=324456234]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitBox" unique_id=1927407153]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.002319336, 0.53466797, -0.03375244)
+shape = SubResource("BoxShape3D_8ri8m")

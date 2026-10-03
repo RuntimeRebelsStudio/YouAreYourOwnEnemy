@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://ctqlorav2l0je"]
+
+[ext_resource type="Script" uid="uid://dawbdelns5vi6" path="res://scenes/obstacle/obstacle.gd" id="1_cqdqj"]
+[ext_resource type="PackedScene" uid="uid://n46wyoeuisgb" path="res://assets/obstacle/FBX-forest/flag.fbx" id="2_2ba2j"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cqdqj"]
+size = Vector3(0.14593506, 0.75038147, 0.15184021)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8ri8m"]
+size = Vector3(0.1508789, 0.7553711, 0.15637207)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6v33g"]
+size = Vector3(0.29577637, 0.26098633, 0.13677979)
+
+[node name="Flag" type="StaticBody3D" unique_id=1087699740]
+script = ExtResource("1_cqdqj")
+max_scale = 7.0
+
+[node name="flag2" parent="." unique_id=276072822 instance=ExtResource("2_2ba2j")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=334687442]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0057678223, 0.37747955, -0.0005874634)
+shape = SubResource("BoxShape3D_cqdqj")
+
+[node name="HitBox" type="Area3D" parent="." unique_id=16581933]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitBox" unique_id=726181471]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0056152344, 0.377384, -0.0005942881)
+shape = SubResource("BoxShape3D_8ri8m")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="HitBox" unique_id=1099103546]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.20452881, 0.57702637, 0.011810303)
+shape = SubResource("BoxShape3D_6v33g")

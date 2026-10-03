@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://clgdikt1o12vb"]
 
+[ext_resource type="Script" uid="uid://c3slj2o1y8588" path="res://scenes/main/main.gd" id="1_yyfjg"]
+[ext_resource type="PackedScene" uid="uid://g2yw6uhuqfjt" path="res://scenes/player/GhostCar/GhostCar.tscn" id="2_b1x3f"]
 [ext_resource type="Script" uid="uid://cdheyx0jbav66" path="res://scenes/main/camera_3d.gd" id="2_hujxm"]
 [ext_resource type="PackedScene" uid="uid://682oje5enrdc" path="res://scenes/player/car.tscn" id="3_b1x3f"]
-[ext_resource type="PackedScene" uid="uid://duxd8tiil4ouv" path="res://scenes/player/Explosion.tscn" id="3_hujxm"]
-[ext_resource type="PackedScene" uid="uid://dd88xbfk4idf2" path="res://scenes/player/Cars/taxi.tscn" id="4_a8run"]
 [ext_resource type="PackedScene" uid="uid://blw8iuakp2j6v" path="res://scenes/track/TrackManager.tscn" id="5_ouso4"]
 [ext_resource type="Script" uid="uid://c2tri8550475i" path="res://scenes/track/track_manager.gd" id="6_blune"]
 [ext_resource type="PackedScene" uid="uid://40itcwpclq2x" path="res://scenes/track/track_chunk.tscn" id="7_th5th"]
@@ -22,6 +22,8 @@ glow_enabled = true
 glow_intensity = 0.8
 
 [node name="Main" type="Node3D" unique_id=1143003491]
+script = ExtResource("1_yyfjg")
+ghost_car_scene = ExtResource("2_b1x3f")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=2146776854]
 environment = SubResource("Environment_b1x3f")
@@ -33,8 +35,7 @@ car = NodePath("../Car")
 
 [node name="Car" parent="." unique_id=1032363274 instance=ExtResource("3_b1x3f")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -0.6471715, 3.08216, -11.9773655)
-explosion_scene = ExtResource("3_hujxm")
-car_model_scene = ExtResource("4_a8run")
+center_of_mass_mode = 1
 
 [node name="TrackManager" parent="." unique_id=294631157 node_paths=PackedStringArray("player") instance=ExtResource("5_ouso4")]
 script = ExtResource("6_blune")

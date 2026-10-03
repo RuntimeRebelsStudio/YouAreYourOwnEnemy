@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://c452hmrrmfxvi"]
+
+[ext_resource type="PackedScene" uid="uid://dy6wj4w8wowu6" path="res://assets/obstacle/FBX-graveyard/pine-fall.fbx" id="1_1hmha"]
+[ext_resource type="Script" uid="uid://dawbdelns5vi6" path="res://scenes/obstacle/obstacle.gd" id="1_u8r7e"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_u8r7e"]
+size = Vector3(0.4597168, 0.33068848, 0.3918457)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7vq2e"]
+size = Vector3(0.98657227, 1.8119507, 1.1499634)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8ri8m"]
+size = Vector3(0.48657227, 0.5024414, 0.42248535)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6v33g"]
+size = Vector3(1, 1.8497314, 1.1809082)
+
+[node name="PineFall" type="StaticBody3D" unique_id=1814486384]
+script = ExtResource("1_u8r7e")
+max_scale = 7.0
+
+[node name="pine-fall" parent="." unique_id=1186503612 instance=ExtResource("1_1hmha")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1160076257]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.013793945, 0.14483643, -0.004760742)
+shape = SubResource("BoxShape3D_u8r7e")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="." unique_id=1538773012]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00061035156, 1.2701164, -0.0025939941)
+shape = SubResource("BoxShape3D_7vq2e")
+
+[node name="HitBox" type="Area3D" parent="." unique_id=1968219292]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitBox" unique_id=285128858]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.018188477, 0.2487793, -0.0065307617)
+shape = SubResource("BoxShape3D_8ri8m")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="HitBox" unique_id=2058740270]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2771217, -0.0010986328)
+shape = SubResource("BoxShape3D_6v33g")

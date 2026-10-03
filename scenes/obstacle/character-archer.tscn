@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://c41qrik1upfj0"]
+
+[ext_resource type="PackedScene" uid="uid://chpk0gwrey258" path="res://assets/obstacle/FBX-forest/character-archer.fbx" id="1_g0304"]
+[ext_resource type="Script" uid="uid://dawbdelns5vi6" path="res://scenes/obstacle/obstacle.gd" id="1_gaqt4"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6v33g"]
+size = Vector3(0.78149414, 0.5904236, 0.3310547)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8ri8m"]
+size = Vector3(0.27215576, 0.20031738, 0.21459961)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7vq2e"]
+size = Vector3(0.27737427, 0.19934082, 0.21972656)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8nufa"]
+size = Vector3(0.7897644, 0.5973816, 0.33685303)
+
+[node name="CharacterArcher" type="StaticBody3D" unique_id=115081565]
+script = ExtResource("1_gaqt4")
+max_scale = 5.0
+
+[node name="character-archer2" parent="." unique_id=1926406595 instance=ExtResource("1_g0304")]
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="." unique_id=2121591627]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00061035156, 0.4896698, 0.0024414063)
+shape = SubResource("BoxShape3D_6v33g")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=298495625]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0005187988, 0.101745605, 0.00036621094)
+shape = SubResource("BoxShape3D_8ri8m")
+
+[node name="HitBox" type="Area3D" parent="." unique_id=978196315]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitBox" unique_id=76374802]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5776367e-05, 0.097717285, -0.00048828125)
+shape = SubResource("BoxShape3D_7vq2e")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="HitBox" unique_id=602682245]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0010528564, 0.48954773, 0.0023498535)
+shape = SubResource("BoxShape3D_8nufa")

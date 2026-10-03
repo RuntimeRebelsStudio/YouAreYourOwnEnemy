@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://bx324nd5hgaa1"]
+
+[ext_resource type="Script" uid="uid://dawbdelns5vi6" path="res://scenes/obstacle/obstacle.gd" id="1_223ev"]
+[ext_resource type="PackedScene" uid="uid://dmqhhhqquv1tv" path="res://assets/obstacle/FBX-car/box.fbx" id="2_223ev"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6v33g"]
+size = Vector3(0.70043945, 0.70513916, 0.7020874)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8ri8m"]
+size = Vector3(0.71429443, 0.7180176, 0.7180176)
+
+[node name="Box" type="StaticBody3D" unique_id=1566826809]
+script = ExtResource("1_223ev")
+
+[node name="box" parent="." unique_id=2061963513 instance=ExtResource("2_223ev")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1496283988]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0008544922, 0.3565979, -0.002532959)
+shape = SubResource("BoxShape3D_6v33g")
+
+[node name="HitBox" type="Area3D" parent="." unique_id=1867456083]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitBox" unique_id=1636489866]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0011291504, 0.35437012, -0.0028076172)
+shape = SubResource("BoxShape3D_8ri8m")
