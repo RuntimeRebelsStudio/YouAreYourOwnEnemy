@@ -2,6 +2,7 @@ extends StaticBody3D
 
 @export var road_texture: Texture2D          # Hier ziehen wir die Textur im Inspector rein
 @export var texture_repeat_distance: float = 4.0 # Alle wieviel Meter sich die Textur wiederholt
+@export var obstacle_scenes: Array[PackedScene] = []
 
 @onready var mesh_instance: MeshInstance3D = $MeshInstance
 @onready var collision_shape: CollisionShape3D = $CollisionShape
@@ -76,6 +77,24 @@ func generate_chunk(start_s: float, length: float) -> void:
 
 	if array_mesh.get_faces().size() > 0:
 		collision_shape.shape = array_mesh.create_trimesh_shape()
+		
+	# --- FBX-OBJEKTE SEED-BASIERT PLATZIEREN ---
+	if obstacle_scenes.size() > 0:
+		var check_step := 12.0
+		var current_obs_s : float = ceil(start_s / check_step) * check_step
+
+		while current_obs_s < end_s:
+			var info := TrackMath.get_obstacle_info(current_obs_s, obstacle_scenes.size())
+			if info.get("has_obstacle", false):
+				var chosen_scene: PackedScene = obstacle_scenes[info.type_index]
+				
+				var rot_deg: float = info.get("rotation_deg", 0.0)
+				var sc_ratio: float = info.get("scale_ratio", 0.5)
+				
+				# Spawnen mit Rotation und Skalierung
+				spawn_obstacle_at(current_obs_s, info.offset_ratio, chosen_scene, rot_deg, sc_ratio)
+				
+			current_obs_s += check_step
 
 func add_quad_with_uv(st: SurfaceTool, 
 		p1: Vector3, uv1: Vector2, 
@@ -92,3 +111,44 @@ func add_quad_with_uv(st: SurfaceTool,
 	st.set_uv(uv2); st.add_vertex(p2)
 	st.set_uv(uv4); st.add_vertex(p4)
 	st.set_uv(uv3); st.add_vertex(p3)
+	
+	
+	
+func spawn_obstacle_at(s: float, offset_ratio: float, scene_to_spawn: PackedScene, extra_rotation_deg: float = 0.0, scale_ratio: float = 0.5) -> void:
+	if not scene_to_spawn:
+		return
+
+	var idx := int(s / TrackMath.step_size)
+	TrackMath.ensure_calculated_up_to(idx + 1)
+
+	var center_pos := TrackMath.points[idx]
+	var norm := TrackMath.normals[idx]
+	var half_w := TrackMath.widths[idx] / 2.0
+
+	var spawn_pos := center_pos + norm * (half_w * offset_ratio)
+
+	var obs := scene_to_spawn.instantiate() as Node3D
+	add_child(obs)
+	obs.global_position = spawn_pos
+
+	# 1. Ausrichtung an der Straße
+	var tan := TrackMath.tangents[idx]
+	if tan.length() > 0:
+		obs.look_at(obs.global_position + tan, Vector3.UP)
+
+	# 2. Lokale Rotation anwenden
+	obs.rotate_object_local(Vector3.UP, deg_to_rad(extra_rotation_deg))
+
+	# 3. INDIVIDUELLE SKALIERUNG BERECHNEN UND ANWENDEN
+	var min_s: float = 1.0
+	var max_s: float = 1.0
+
+	# Prüft, ob das Objekt min_scale / max_scale Variablen definiert hat
+	if "min_scale" in obs:
+		min_s = obs.min_scale
+	if "max_scale" in obs:
+		max_s = obs.max_scale
+
+	# Interpoliert individuell für dieses Objekt
+	var final_scale_factor : float = lerp(min_s, max_s, scale_ratio)
+	obs.scale = Vector3.ONE * final_scale_factor

@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://bpg7mlyejki43"]
+
+[ext_resource type="PackedScene" uid="uid://4o0fd1i1xs7r" path="res://assets/obstacle/FBX/rocks-low.fbx" id="1_uvkgx"]
+[ext_resource type="Script" uid="uid://dawbdelns5vi6" path="res://scenes/obstacle/obstacle.gd" id="2_v6wdc"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8ri8m"]
+size = Vector3(1, 0.5161133, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6v33g"]
+size = Vector3(1.0170898, 0.522522, 1.0155029)
+
+[node name="RocksLow" type="StaticBody3D" unique_id=257884894]
+script = ExtResource("2_v6wdc")
+max_scale = 5.0
+
+[node name="rocks-low" parent="." unique_id=2040545796 instance=ExtResource("1_uvkgx")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=241264509]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.24194336, 0)
+shape = SubResource("BoxShape3D_8ri8m")
+
+[node name="HitBox" type="Area3D" parent="." unique_id=289809422]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitBox" unique_id=924382137]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00024414063, 0.24960327, 0.0004272461)
+shape = SubResource("BoxShape3D_6v33g")
