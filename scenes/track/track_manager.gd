@@ -1,6 +1,6 @@
 extends Node3D
 
-@export var player: CharacterBody3D
+@export var player: VehicleBody3D
 @export var chunk_scene: PackedScene
 @export var chunk_length: float = 40.0
 @export var render_distance: float = 160.0

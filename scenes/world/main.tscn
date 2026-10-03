@@ -2,7 +2,8 @@
 
 [ext_resource type="PackedScene" uid="uid://capn4vk57wyrm" path="res://scenes/track/track_manager.tscn" id="1_0wkb6"]
 [ext_resource type="PackedScene" uid="uid://40itcwpclq2x" path="res://scenes/track/track_chunk.tscn" id="2_f8fyy"]
-[ext_resource type="PackedScene" uid="uid://fl6p213rq5yr" path="res://scenes/player/player.tscn" id="3_wbupf"]
+[ext_resource type="Script" uid="uid://cdheyx0jbav66" path="res://scenes/world/camera_3d.gd" id="4_7tdlr"]
+[ext_resource type="PackedScene" uid="uid://682oje5enrdc" path="res://scenes/player/car.tscn" id="4_wbupf"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_lvxji"]
 
@@ -23,10 +24,11 @@ shadow_enabled = true
 environment = SubResource("Environment_dovo2")
 
 [node name="TrackManager" parent="." unique_id=2094744761 node_paths=PackedStringArray("player") instance=ExtResource("1_0wkb6")]
-player = NodePath("../Player")
+player = NodePath("../Car")
 chunk_scene = ExtResource("2_f8fyy")
-chunk_length = null
-render_distance = null
-seed_value = null
 
-[node name="Player" parent="." unique_id=2363110 instance=ExtResource("3_wbupf")]
+[node name="Car" parent="." unique_id=1032363274 instance=ExtResource("4_wbupf")]
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1816432660 node_paths=PackedStringArray("car")]
+script = ExtResource("4_7tdlr")
+car = NodePath("../Car")

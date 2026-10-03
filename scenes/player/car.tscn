@@ -4,6 +4,9 @@
 [ext_resource type="PackedScene" uid="uid://bbblyk4e73i3" path="res://scenes/player/Cars/ice_cream_truck_1.tscn" id="2_db5j1"]
 
 [node name="Car" type="VehicleBody3D" unique_id=1032363274]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, -1.7560205)
+center_of_mass_mode = 1
+center_of_mass = Vector3(0, -0.5, 0)
 script = ExtResource("1_janxj")
 car_model_scene = ExtResource("2_db5j1")
 engine_power = null

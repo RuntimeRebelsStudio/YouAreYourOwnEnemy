@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c14ch3ohkkdnw"
-path="res://.godot/imported/Asphalt019_1K-JPG_Color.jpg-1e729b0c44602137b4dc2167a748aa6f.ctex"
+path="res://.godot/imported/Asphalt019_1K-JPG_Color.jpg-2dccbe49a5e5d4307ac0d29f82e249a7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Asphalt019_1K-JPG_Color.jpg"
-dest_files=["res://.godot/imported/Asphalt019_1K-JPG_Color.jpg-1e729b0c44602137b4dc2167a748aa6f.ctex"]
+source_file="res://assets/track/Asphalt019_1K-JPG_Color.jpg"
+dest_files=["res://.godot/imported/Asphalt019_1K-JPG_Color.jpg-2dccbe49a5e5d4307ac0d29f82e249a7.ctex"]
 
 [params]
 
