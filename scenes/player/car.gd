@@ -48,7 +48,11 @@ func _ready() -> void:
 	current_car_model = car_model_scene.instantiate() as CarModel
 	if current_car_model.get_parent() == null:
 		add_child(current_car_model)
-
+	
+	# --- NEU: Schwerpunkt vom CarModel auf den VehicleBody3D übertragen ---
+	center_of_mass_mode = RigidBody3D.CENTER_OF_MASS_MODE_CUSTOM
+	center_of_mass = current_car_model.custom_center_of_mass
+	
 	visual_wheels = {
 		"fl": current_car_model.wheel_fl,
 		"fr": current_car_model.wheel_fr,
@@ -56,8 +60,10 @@ func _ready() -> void:
 		"br": current_car_model.wheel_br,
 	}
 
-	# Kollision übernehmen, globale Position behalten
-	current_car_model.body_collision.reparent(self, true)
+	# 2. ALLE Kollisionen (egal ob eine oder mehrere) übernehmen
+	for col in current_car_model.collision_shapes:
+		if col != null:
+			col.reparent(self, true)
 	
 	
 

@@ -396,10 +396,10 @@ shadow_mesh = SubResource("ArrayMesh_xnf8g")
 [sub_resource type="BoxShape3D" id="BoxShape3D_4qfyp"]
 size = Vector3(1.0877686, 0.4395752, 0.12683105)
 
-[node name="Taxi" type="Area3D" unique_id=1460257494 node_paths=PackedStringArray("body_mesh", "body_collision", "wheel_fl", "wheel_fr", "wheel_bl", "wheel_br")]
+[node name="Taxi" type="Area3D" unique_id=1460257494 node_paths=PackedStringArray("body_mesh", "collision_shapes", "wheel_fl", "wheel_fr", "wheel_bl", "wheel_br")]
 script = ExtResource("1_mqlc5")
 body_mesh = NodePath("Taxi_Body")
-body_collision = NodePath("CollisionShape3D")
+collision_shapes = [NodePath("CollisionShape3D"), NodePath("CollisionShape3D2"), NodePath("CollisionShape3D3")]
 wheel_fl = NodePath("Wheel_fL")
 wheel_fr = NodePath("Wheel_fR")
 wheel_bl = NodePath("Wheel_bL")
