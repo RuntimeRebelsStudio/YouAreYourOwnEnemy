@@ -20,7 +20,8 @@ signal car_died
 var is_dead: bool = false
 
 
-
+# --- SLOW ZONE / PATCH LOGIC (Einfach) ---
+var current_slow_factor: float = 1.0
 
 
 @onready var physics_wheels := {
@@ -73,6 +74,13 @@ func _ready() -> void:
 		v.rotation = Vector3.ZERO
 		
 
+# --- SLOW ZONE STEUERUNG (Direkt ohne Zähler) ---
+func enter_slow_zone(factor: float) -> void:
+	current_slow_factor = factor
+
+func exit_slow_zone() -> void:
+	current_slow_factor = 1.0
+
 
 func _physics_process(delta: float) -> void:
 	if is_dead:
@@ -83,15 +91,21 @@ func _physics_process(delta: float) -> void:
 
 	var accel := Input.get_axis("backward", "forward")
 	
-	var rpm = abs($Back_Left.get_rpm())
-	$Back_Left.engine_force = accel * max_torque * ( 1 - rpm / max_rpm)
-	rpm = abs($Back_Right.get_rpm())
-	$Back_Right.engine_force = accel * max_torque * ( 1 - rpm / max_rpm)
+	# Dynamische Skalierung von Drehmoment und Max-RPM
+	var effective_torque := max_torque * current_slow_factor
+	var effective_max_rpm := max_rpm * current_slow_factor
 
+	var rpm = abs($Back_Left.get_rpm())
+	$Back_Left.engine_force = accel * effective_torque * (1.0 - rpm / effective_max_rpm)
+	rpm = abs($Back_Right.get_rpm())
+	$Back_Right.engine_force = accel * effective_torque * (1.0 - rpm / effective_max_rpm)
 
 	if Input.is_action_pressed("brake"):
 		brake = 5.0
 		engine_force = 0.0
+	elif current_slow_factor < 1.0:
+		# Leichter Widerstand/Reibung im Gras/Matsch
+		brake = 2.0
 	else:
 		brake = 0.0
 
