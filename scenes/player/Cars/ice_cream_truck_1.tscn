@@ -1,6 +1,6 @@
 [gd_scene format=4 uid="uid://bbblyk4e73i3"]
 
-[ext_resource type="Script" uid="uid://vdqjcdmp8vp1" path="res://car_model.gd" id="1_lo0gu"]
+[ext_resource type="Script" uid="uid://bdm4cy4u3orcu" path="res://scenes/player/car_model.gd" id="1_lo0gu"]
 [ext_resource type="Texture2D" uid="uid://dcmst03lnrlsu" path="res://scenes/player/CarModels/Textures/City Atlas Map.png" id="2_hhm3q"]
 [ext_resource type="Texture2D" uid="uid://dtwmnag70tts4" path="res://scenes/player/CarModels/Textures/Windows.png" id="3_7whop"]
 

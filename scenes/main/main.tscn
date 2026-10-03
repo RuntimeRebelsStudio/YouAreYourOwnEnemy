@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://clgdikt1o12vb"]
+
+[ext_resource type="Script" uid="uid://cdheyx0jbav66" path="res://scenes/main/camera_3d.gd" id="2_hujxm"]
+[ext_resource type="PackedScene" uid="uid://682oje5enrdc" path="res://scenes/player/car.tscn" id="3_b1x3f"]
+[ext_resource type="PackedScene" uid="uid://dd88xbfk4idf2" path="res://scenes/player/Cars/taxi.tscn" id="4_a8run"]
+[ext_resource type="PackedScene" uid="uid://blw8iuakp2j6v" path="res://scenes/track/TrackManager.tscn" id="5_ouso4"]
+[ext_resource type="Script" uid="uid://c2tri8550475i" path="res://scenes/track/track_manager.gd" id="6_blune"]
+[ext_resource type="PackedScene" uid="uid://40itcwpclq2x" path="res://scenes/track/track_chunk.tscn" id="7_th5th"]
+
+[node name="Main" type="Node3D" unique_id=1143003491]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=795811001]
+transform = Transform3D(1, 0, 0, 0, -0.64111036, 0.76744866, 0, -0.76744866, -0.64111036, 0, 8.803656, 0)
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1295078062 node_paths=PackedStringArray("car")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 1.4363263, -2.4261994)
+script = ExtResource("2_hujxm")
+car = NodePath("../Car")
+
+[node name="Car" parent="." unique_id=1032363274 instance=ExtResource("3_b1x3f")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -0.6471715, 3.08216, -11.9773655)
+car_model_scene = ExtResource("4_a8run")
+
+[node name="TrackManager" parent="." unique_id=294631157 node_paths=PackedStringArray("player") instance=ExtResource("5_ouso4")]
+script = ExtResource("6_blune")
+player = NodePath("../Car")
+chunk_scene = ExtResource("7_th5th")
