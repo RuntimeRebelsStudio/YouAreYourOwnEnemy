@@ -10,7 +10,7 @@ var current_car_model: CarModel
 @export var engine_power: float = 200.0
 @export var max_steer_angle: float = 0.5
 @export var steer_speed: float = 3.0
-@export var max_torque: float  = 350.0
+@export var max_torque: float  = 3500.0 # vorher 350.0
 
 @export_group("Speed Growth")
 @export var min_max_rpm: float = 300.0       # Start-Höchstgeschwindigkeit (RPM)
@@ -124,11 +124,11 @@ func _physics_process(delta: float) -> void:
 	$Back_Right.engine_force = accel * effective_torque * (1.0 - rpmBR / effective_max_rpm)
 
 	if Input.is_action_pressed("brake"):
-		brake = 5.0
+		brake = 10000.0   # Vorher 5.0 - Muss bei 1200kg massiv höher sein!
 		engine_force = 0.0
 	elif current_slow_factor < 1.0:
 		# Leichter Widerstand/Reibung im Gras/Matsch
-		brake = 2.0
+		brake = 2000.0    # Vorher 2.0
 	else:
 		brake = 0.0
 		
