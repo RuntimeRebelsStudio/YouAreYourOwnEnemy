@@ -17,6 +17,7 @@ size = Vector3(0.7897644, 0.5973816, 0.33685303)
 
 [node name="CharacterArcher" type="StaticBody3D" unique_id=115081565]
 script = ExtResource("1_gaqt4")
+max_scale = 5.0
 
 [node name="character-archer" parent="." unique_id=1425049990 instance=ExtResource("1_g0304")]
 

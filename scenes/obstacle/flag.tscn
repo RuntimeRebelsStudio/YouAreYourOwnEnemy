@@ -14,6 +14,7 @@ size = Vector3(0.29577637, 0.26098633, 0.13677979)
 
 [node name="Flag" type="StaticBody3D" unique_id=1087699740]
 script = ExtResource("1_cqdqj")
+max_scale = 7.0
 
 [node name="flag" parent="." unique_id=1534784782 instance=ExtResource("2_2ba2j")]
 
