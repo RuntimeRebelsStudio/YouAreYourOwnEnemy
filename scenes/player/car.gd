@@ -53,6 +53,8 @@ func _ready() -> void:
 	center_of_mass_mode = RigidBody3D.CENTER_OF_MASS_MODE_CUSTOM
 	center_of_mass = current_car_model.custom_center_of_mass
 	
+	mass = current_car_model.vehicle_mass
+	
 	visual_wheels = {
 		"fl": current_car_model.wheel_fl,
 		"fr": current_car_model.wheel_fr,
