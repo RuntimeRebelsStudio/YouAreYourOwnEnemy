@@ -142,8 +142,8 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_bxxar")
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_mqlc5"]
-points = PackedVector3Array(0.0016560801, 0.0019092401, 0.011561904, -0.0019613376, 0.0019092401, 0.011561904, -0.003771145, -0.011480952, -0.0003809519, -0.005580952, 0.010232199, -1.855148e-05, 0.005275694, -0.010755442, 0.004324412, 0.0049132938, 0.010955442, 0.005048044, -0.005218551, -0.010755442, 0.004325581, 0.005275694, -0.01111593, -0.0003797831, 0.005638095, 0.010232199, -1.7382205e-05, -0.0048561506, 0.010594954, 0.0054116137, -0.003771145, -0.0027929707, 0.010112301, 0.003828288, -0.0031534585, 0.00975107, 0.0034658874, 0.0058904756, 0.00975107, -0.005580952, -0.010032199, -1.855148e-05, -0.005580952, 0.008422959, 0.003962011, 0.005638095, 0.008060204, 0.00396318, -0.005218551, 0.011318197, 0.0014298824, -0.0034087442, 0.0058904756, 0.00975107, 0.005638095, -0.007497449, 0.00396318, -0.005580952, -0.007860204, 0.003962011, 0.005275694, 0.011318197, 0.0014298824, 0.005638095, -0.010032199, -1.7382205e-05, -0.0029003897, 0.009751265, -9.7512646e-05, 0.0016560801, 0.00046048756, 0.011561904, -0.005218551, -0.01111593, -0.0003809519, -0.003771145, 0.0058904756, 0.009389838, 0.0049132938, -0.010392687, 0.0046868124, 0.003828288, -0.011480952, -0.0003797831, -0.0048561506, 0.010955442, 0.005048044, 0.0029591625, 0.009753187, -9.753187e-05, -0.0019613376, 0.00046048756, 0.011561904, -0.0048561506, -0.010392687, 0.0046868124)
+[sub_resource type="BoxShape3D" id="BoxShape3D_opikn"]
+size = Vector3(1.093811, 0.6767273, 2.13031)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ls141"]
 resource_name = "Tire"
@@ -393,6 +393,9 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_xnf8g")
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_4qfyp"]
+size = Vector3(1.0877686, 0.4395752, 0.12683105)
+
 [node name="Taxi" type="Area3D" unique_id=1460257494 node_paths=PackedStringArray("body_mesh", "body_collision", "wheel_fl", "wheel_fr", "wheel_bl", "wheel_br")]
 script = ExtResource("1_mqlc5")
 body_mesh = NodePath("Taxi_Body")
@@ -407,8 +410,8 @@ transform = Transform3D(100, 0, 0, 0, -4.3711384e-06, 99.99999, 0, -99.99999, -4
 mesh = SubResource("ArrayMesh_q1iob")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=159232490]
-transform = Transform3D(100, 0, 0, 0, -4.371139e-06, 96, 0, -100, -4.196293e-06, -0.032773256, 0.014263213, 0.65713596)
-shape = SubResource("ConvexPolygonShape3D_mqlc5")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.033111572, 0.6370392, 0.6583557)
+shape = SubResource("BoxShape3D_opikn")
 
 [node name="Wheel_fR" type="MeshInstance3D" parent="." unique_id=1869136155]
 transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, -0.5281327, 0.0653771, 1.3538425)
@@ -425,3 +428,11 @@ mesh = SubResource("ArrayMesh_s62vk")
 [node name="Wheel_bR" type="MeshInstance3D" parent="." unique_id=260877483]
 transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, -0.5281327, 0.0653771, -0.07067323)
 mesh = SubResource("ArrayMesh_ggss1")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="." unique_id=386448001]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.032287598, 0.21929932, 1.6618683)
+shape = SubResource("BoxShape3D_4qfyp")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="." unique_id=1224508130]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.032287598, 0.21929932, -0.34492612)
+shape = SubResource("BoxShape3D_4qfyp")
