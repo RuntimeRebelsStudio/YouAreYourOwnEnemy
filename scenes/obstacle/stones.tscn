@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://b1uiwfsgaerr"]
+
+[ext_resource type="PackedScene" uid="uid://bikdr6wn6hs45" path="res://assets/obstacle/FBX/stones.fbx" id="1_g7tp3"]
+[ext_resource type="Script" uid="uid://dawbdelns5vi6" path="res://scenes/obstacle/obstacle.gd" id="1_x57wq"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6v33g"]
+size = Vector3(0.89160156, 0.4540863, 0.83740234)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8ri8m"]
+size = Vector3(0.9022827, 0.46264648, 0.8494873)
+
+[node name="Stones" type="StaticBody3D" unique_id=531490265]
+script = ExtResource("1_x57wq")
+
+[node name="stones" parent="." unique_id=1625228352 instance=ExtResource("1_g7tp3")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=233868164]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0034179688, 0.23006439, 0.024902344)
+shape = SubResource("BoxShape3D_6v33g")
+
+[node name="HitBox" type="Area3D" parent="." unique_id=2136179745]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitBox" unique_id=185556521]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0039978027, 0.2298584, 0.024841309)
+shape = SubResource("BoxShape3D_8ri8m")
