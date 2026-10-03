@@ -262,3 +262,40 @@ static func get_patch_info(s: float, patch_count: int) -> Dictionary:
 		}
 
 	return {"has_patch": false}
+	
+	
+# TrackMath.gd
+
+# Optimierte Abfrage: Sucht nur in einem kleinen Fenster um den 'last_index' herum
+static func get_track_progress_s_optimized(car_position: Vector3, last_index: int) -> Dictionary:
+	if points.is_empty():
+		return {"s": 0.0, "index": 0}
+		
+	var search_radius := 15 # Prüft nur 15 Punkte vor und hinter der letzten Position
+	var start_i: int = max(0, last_index - search_radius)
+	var end_i: int = min(points.size() - 1, last_index + search_radius)
+	
+	var best_idx := last_index
+	var min_dist_sq := INF
+	
+	# Sucht den am nächsten gelegenen Punkt im lokalen Fenster
+	for i in range(start_i, end_i + 1):
+		var dist_sq := car_position.distance_squared_to(points[i])
+		if dist_sq < min_dist_sq:
+			min_dist_sq = dist_sq
+			best_idx = i
+			
+	# Falls der Spieler sich schneller als das Suchfenster bewegt hat (z. B. Respawn/Teleport), 
+	# machen wir als Fallback eine globale Suche:
+	if best_idx == start_i and start_i > 0 or best_idx == end_i and end_i < points.size() - 1:
+		for i in range(points.size()):
+			var dist_sq := car_position.distance_squared_to(points[i])
+			if dist_sq < min_dist_sq:
+				min_dist_sq = dist_sq
+				best_idx = i
+
+	var progress_s := best_idx * step_size
+	return {
+		"s": progress_s,
+		"index": best_idx
+	}
