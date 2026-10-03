@@ -8,7 +8,7 @@ static var noise_sharp := FastNoiseLite.new()   # Seltene, scharfe Haken
 
 static var step_size: float = 2.0
 
-# --- SANDUHR-BREITEN (Unverändert gut!) ---
+# --- SANDUHR-BREITEN ---
 static var min_track_width: float = 5.0   # Echtes Engpass-Nadelöhr
 static var max_track_width: float = 28.0  # Breiter Boulevard
 
@@ -19,6 +19,10 @@ static var normals: Array[Vector3] = []
 static var widths: Array[float] = []
 
 static var accumulated_angle: float = 0.0
+
+static var noise_obs_spawn := FastNoiseLite.new()
+static var noise_obs_pos := FastNoiseLite.new()
+static var noise_obs_type := FastNoiseLite.new()
 
 static func init_seed(game_seed: int) -> void:
 	# 1. Breiten-Noise
@@ -40,6 +44,21 @@ static func init_seed(game_seed: int) -> void:
 	noise_sharp.seed = game_seed + 777
 	noise_sharp.frequency = 0.003
 	noise_sharp.noise_type = FastNoiseLite.TYPE_PERLIN
+	
+	# 5. Hindernis-Zonen (Niedrigere Frequenz = ausgedehnte Abschnitte mit/ohne Hindernisse)
+	noise_obs_spawn.seed = game_seed + 555
+	noise_obs_spawn.frequency = 0.008
+	noise_obs_spawn.noise_type = FastNoiseLite.TYPE_PERLIN
+
+	# 6. Querposition auf der Fahrbahn
+	noise_obs_pos.seed = game_seed + 444
+	noise_obs_pos.frequency = 0.04
+	noise_obs_pos.noise_type = FastNoiseLite.TYPE_PERLIN
+
+	# 7. Welches Asset aus dem Array gewählt wird
+	noise_obs_type.seed = game_seed + 333
+	noise_obs_type.frequency = 0.1
+	noise_obs_type.noise_type = FastNoiseLite.TYPE_PERLIN
 
 	points.clear()
 	tangents.clear()
@@ -58,17 +77,17 @@ static func ensure_calculated_up_to(target_index: int) -> void:
 		var i := points.size()
 		var current_s := i * step_size
 
-		# --- 1. KURVEN-ELEMENTE STARK UND KONTINUIERLICH BERECHNEN ---
+		# --- 1. KURVEN-ELEMENTE BERECHNEN ---
 		
-		# A) Hauptkurve: Verstärkt durch Potenzierung, damit keine spitzen Nullstellen entstehen
+		# A) Hauptkurve
 		var raw_macro := noise_macro.get_noise_1d(current_s)
 		var macro := signf(raw_macro) * pow(absf(raw_macro), 0.5) * 0.038
 
-		# B) Schnelle S-Kurven: Laufen fließend auf der Hauptkurve mit
+		# B) Schnelle S-Kurven
 		var raw_micro := noise_micro.get_noise_1d(current_s)
 		var micro := raw_micro * 0.025
 
-		# C) Scharfe Kurven-Haken (Injiziert bei Ausschlägen scharfe Abbiegungen)
+		# C) Scharfe Kurven-Haken
 		var raw_sharp := noise_sharp.get_noise_1d(current_s)
 		var sharp := 0.0
 		if absf(raw_sharp) > 0.32:
@@ -104,8 +123,9 @@ static func get_closest_s(pos: Vector3) -> float:
 	var min_dist_sq := 1e10
 	var best_idx := last_known_s_idx
 
-	var search_start : float = max(0, last_known_s_idx - 10)
-	var search_end : float = min(points.size(), last_known_s_idx + 100)
+	# KORREKTUR: int statt float (für range)
+	var search_start : int = max(0, last_known_s_idx - 10)
+	var search_end : int = min(points.size(), last_known_s_idx + 100)
 
 	for i in range(search_start, search_end):
 		var dist_sq := pos.distance_squared_to(points[i])
@@ -115,3 +135,46 @@ static func get_closest_s(pos: Vector3) -> float:
 
 	last_known_s_idx = best_idx
 	return best_idx * step_size
+	
+# Gibt Spawndaten deterministisch und quer über die ganze Fahrbahn verteilt zurück
+static func get_obstacle_info(s: float, asset_count: int) -> Dictionary:
+	if asset_count == 0:
+		return {"has_obstacle": false}
+
+	# 1. Zone prüfen
+	var zone_density := noise_obs_spawn.get_noise_1d(s)
+
+	if zone_density > -0.1:
+		var step_id := int(s)
+
+		# 2. Hash für das Auftauchen
+		var spawn_hash := posmod(hash(step_id * 73856093 ^ noise_obs_spawn.seed), 100000)
+		var spawn_chance := (spawn_hash % 100) / 100.0
+
+		if spawn_chance < 0.45:
+			# 3. Asset-Index wählen
+			var type_hash := posmod(hash(step_id * 19349663 ^ (noise_obs_spawn.seed + 99)), 100000)
+			var selected_index := type_hash % asset_count
+
+			# 4. Querposition auf der Straße (-0.85 bis +0.85)
+			var pos_hash := posmod(hash(step_id * 3828371 ^ (noise_obs_spawn.seed + 55)), 100000)
+			var normalized_pos := (pos_hash % 1001) / 1000.0
+			var offset_ratio := (normalized_pos * 1.7) - 0.85
+
+			# 5. Rotation (0.0 bis 359.9 Grad)
+			var rot_hash := posmod(hash(step_id * 9182731 ^ (noise_obs_spawn.seed + 123)), 100000)
+			var rotation_deg := (rot_hash % 3600) / 10.0
+
+			# 6. DETERMINISTISCHES SKALIERUNGS-VERHÄLTNIS (0.0 bis 1.0)
+			var scale_hash := posmod(hash(step_id * 482711 ^ (noise_obs_spawn.seed + 222)), 100000)
+			var scale_ratio := (scale_hash % 1001) / 1000.0
+
+			return {
+				"has_obstacle": true,
+				"offset_ratio": offset_ratio,
+				"type_index": selected_index,
+				"rotation_deg": rotation_deg,
+				"scale_ratio": scale_ratio
+			}
+
+	return {"has_obstacle": false}

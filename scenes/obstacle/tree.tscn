@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://cdbh3i6uulvxm"]
+
+[ext_resource type="Script" uid="uid://dawbdelns5vi6" path="res://scenes/obstacle/obstacle.gd" id="1_3i47e"]
+[ext_resource type="PackedScene" uid="uid://bwu28qm06x7tt" path="res://assets/obstacle/FBX/tree.fbx" id="1_o6cn5"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_6v33g"]
+radius = 0.45361328
+height = 1.7070313
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7vq2e"]
+radius = 0.46875
+height = 1.7314453
+
+[node name="Tree" type="StaticBody3D" unique_id=576092604]
+script = ExtResource("1_3i47e")
+max_scale = 10.0
+
+[node name="tree" parent="." unique_id=1189309522 instance=ExtResource("1_o6cn5")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1117448503]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8496094, 0)
+shape = SubResource("CapsuleShape3D_6v33g")
+
+[node name="HitBox" type="Area3D" parent="." unique_id=428644696]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitBox" unique_id=1784092905]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.84814453, 0)
+shape = SubResource("CapsuleShape3D_7vq2e")
