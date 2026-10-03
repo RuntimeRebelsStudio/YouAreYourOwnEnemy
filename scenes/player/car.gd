@@ -35,6 +35,10 @@ var is_recording: bool = true
 
 # --- SLOW ZONE / PATCH LOGIC (Einfach) ---
 var current_slow_factor: float = 1.0
+# Score
+var max_distance_score: float = 0.0
+var current_track_index: int = 0
+
 
 
 @onready var physics_wheels := {
@@ -47,10 +51,19 @@ var current_slow_factor: float = 1.0
 var visual_wheels := {}
 
 func _ready() -> void:
+	
+	add_to_group("player")
+	
+	var selected_model_scene := GameManager.get_selected_car_scene()
+	
+	if selected_model_scene:
+		car_model_scene = selected_model_scene
+	
 	if not car_model_scene:
-		push_error("No CarModel scene assigned to PlayerCar!")
+		push_error("No CarModel scene available for PlayerCar!")
 		return
 	
+		
 	current_car_model = car_model_scene.instantiate() as CarModel
 	if current_car_model.get_parent() == null:
 		add_child(current_car_model)
@@ -107,8 +120,22 @@ func exit_slow_zone() -> void:
 
 
 func _physics_process(delta: float) -> void:
+	if GameManager.current_state != GameManager.GameState.PLAYING:
+		return
+	
+	
 	if is_dead:
 		return
+
+
+	# O(1) Abfrage des Fortschritts:
+	var track_data := TrackMath.get_track_progress_s_optimized(global_position, current_track_index)
+	current_track_index = track_data.index
+	var current_s: float = track_data.s
+	
+	# Score-Highmark setzen
+	if current_s > max_distance_score:
+		max_distance_score = current_s
 
 	# Record position for ghost mechanic	
 	if is_recording:
@@ -191,6 +218,7 @@ func die() -> void:
 		return
 		
 	is_dead = true
+	is_recording = false
 	
 	engine_force = 0.0
 	brake = 100.0
@@ -198,12 +226,6 @@ func die() -> void:
 	
 	# Send Signal
 	car_died.emit()
-
-	print("--- DEBUG DIE ---")
-	print("1. Frames aufgenommen: ", current_run_data.size())
-	print("2. Ist car_model_scene zugewiesen? ", car_model_scene != null)
-	
-	GameManager.save_ghost_data(current_run_data, car_model_scene)
 	
 	if explosion_scene:
 		var explosion = explosion_scene.instantiate() as Node3D
@@ -213,9 +235,12 @@ func die() -> void:
 		
 		# Place at car's global position
 		explosion.global_position = global_position
+	
+	await get_tree().create_timer(1.5).timeout
 		
+	GameManager.trigger_player_death(max_distance_score, current_run_data,
+	 car_model_scene)
 		
-	GameManager.respawn_level()
 	
 	
 	

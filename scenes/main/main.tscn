@@ -5,8 +5,10 @@
 [ext_resource type="Script" uid="uid://cdheyx0jbav66" path="res://scenes/main/camera_3d.gd" id="2_hujxm"]
 [ext_resource type="PackedScene" uid="uid://682oje5enrdc" path="res://scenes/player/car.tscn" id="3_b1x3f"]
 [ext_resource type="PackedScene" uid="uid://blw8iuakp2j6v" path="res://scenes/track/TrackManager.tscn" id="5_ouso4"]
+[ext_resource type="PackedScene" uid="uid://dd88xbfk4idf2" path="res://scenes/player/Cars/taxi.tscn" id="5_yyfjg"]
 [ext_resource type="Script" uid="uid://c2tri8550475i" path="res://scenes/track/track_manager.gd" id="6_blune"]
 [ext_resource type="PackedScene" uid="uid://40itcwpclq2x" path="res://scenes/track/track_chunk.tscn" id="7_th5th"]
+[ext_resource type="PackedScene" uid="uid://chj1roc1e05kq" path="res://GUI/HUD.tscn" id="9_b1x3f"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_hujxm"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -36,8 +38,13 @@ car = NodePath("../Car")
 [node name="Car" parent="." unique_id=1032363274 instance=ExtResource("3_b1x3f")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -0.6471715, 3.08216, -11.9773655)
 center_of_mass_mode = 1
+car_model_scene = ExtResource("5_yyfjg")
 
 [node name="TrackManager" parent="." unique_id=294631157 node_paths=PackedStringArray("player") instance=ExtResource("5_ouso4")]
 script = ExtResource("6_blune")
 player = NodePath("../Car")
 chunk_scene = ExtResource("7_th5th")
+
+[node name="Hud" parent="." unique_id=1928233953 instance=ExtResource("9_b1x3f")]
+
+[node name="SpawnPoint" type="Node3D" parent="." unique_id=2004835948]

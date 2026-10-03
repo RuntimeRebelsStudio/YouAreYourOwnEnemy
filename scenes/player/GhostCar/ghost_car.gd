@@ -7,7 +7,6 @@ var current_frame: int = 0
 var is_playing: bool = false
 
 func start_replay(data: Array[Transform3D], car_scene: PackedScene) -> void:
-	print("--- DEBUG GHOST START ---")
 	ghost_data = data
 	current_frame = 0
 	
@@ -21,7 +20,6 @@ func start_replay(data: Array[Transform3D], car_scene: PackedScene) -> void:
 	
 	var model = car_scene.instantiate()
 	add_child(model)
-	print("6. Modell instanziiert: ", model.name)
 	
 	await get_tree().process_frame
 	
@@ -33,7 +31,6 @@ func start_replay(data: Array[Transform3D], car_scene: PackedScene) -> void:
 	
 func _apply_ghost_overlay(node: Node) -> void:
 	if node is MeshInstance3D:
-		print("7. Mesh für Overlay gefunden: ", node.name)
 		if ghost_material:
 			node.material_overlay = ghost_material
 		else:
