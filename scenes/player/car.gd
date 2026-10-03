@@ -1,5 +1,7 @@
 extends VehicleBody3D
 
+@export var explosion_scene: PackedScene
+
 @export var car_model_scene: PackedScene
 var current_car_model: CarModel
 
@@ -8,10 +10,15 @@ var current_car_model: CarModel
 @export var engine_power: float = 200.0
 @export var max_steer_angle: float = 0.5
 @export var steer_speed: float = 3.0
-@export var max_rpm = 500.0
-@export var max_torque = 200.0
+@export var max_rpm: float = 500.0
+@export var max_torque: float  = 200.0
 
 var y_wheel_offset = 0.08
+
+# Car Death 
+signal car_died
+var is_dead: bool = false
+
 
 
 
@@ -68,6 +75,9 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
+	if is_dead:
+		return
+	
 	var steer_target := Input.get_axis("right", "left") * max_steer_angle
 	steering = move_toward(steering, steer_target, steer_speed * delta)
 
@@ -88,3 +98,32 @@ func _physics_process(delta: float) -> void:
 
 func _process(_delta: float) -> void:
 	pass
+	
+	
+func die() -> void:
+	if is_dead:
+		return
+		
+	is_dead = true
+	
+	engine_force = 0.0
+	brake = 100.0
+	steering = 0.0
+	
+	# Send Signal
+	car_died.emit()
+	
+	if explosion_scene:
+		var explosion = explosion_scene.instantiate() as Node3D
+		
+		# Add to current level root so it isn't deleted if the car is freed
+		get_tree().current_scene.add_child(explosion)
+		
+		# Place at car's global position
+		explosion.global_position = global_position
+	
+	
+	
+	
+	
+	

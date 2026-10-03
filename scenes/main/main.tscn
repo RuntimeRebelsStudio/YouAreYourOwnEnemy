@@ -2,15 +2,29 @@
 
 [ext_resource type="Script" uid="uid://cdheyx0jbav66" path="res://scenes/main/camera_3d.gd" id="2_hujxm"]
 [ext_resource type="PackedScene" uid="uid://682oje5enrdc" path="res://scenes/player/car.tscn" id="3_b1x3f"]
+[ext_resource type="PackedScene" uid="uid://duxd8tiil4ouv" path="res://scenes/player/Explosion.tscn" id="3_hujxm"]
 [ext_resource type="PackedScene" uid="uid://dd88xbfk4idf2" path="res://scenes/player/Cars/taxi.tscn" id="4_a8run"]
 [ext_resource type="PackedScene" uid="uid://blw8iuakp2j6v" path="res://scenes/track/TrackManager.tscn" id="5_ouso4"]
 [ext_resource type="Script" uid="uid://c2tri8550475i" path="res://scenes/track/track_manager.gd" id="6_blune"]
 [ext_resource type="PackedScene" uid="uid://40itcwpclq2x" path="res://scenes/track/track_chunk.tscn" id="7_th5th"]
 
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_hujxm"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_yyfjg"]
+sky_material = SubResource("ProceduralSkyMaterial_hujxm")
+
+[sub_resource type="Environment" id="Environment_b1x3f"]
+background_mode = 2
+sky = SubResource("Sky_yyfjg")
+glow_enabled = true
+glow_intensity = 0.8
+
 [node name="Main" type="Node3D" unique_id=1143003491]
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=795811001]
-transform = Transform3D(1, 0, 0, 0, -0.64111036, 0.76744866, 0, -0.76744866, -0.64111036, 0, 8.803656, 0)
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=2146776854]
+environment = SubResource("Environment_b1x3f")
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1295078062 node_paths=PackedStringArray("car")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 1.4363263, -2.4261994)
@@ -19,6 +33,7 @@ car = NodePath("../Car")
 
 [node name="Car" parent="." unique_id=1032363274 instance=ExtResource("3_b1x3f")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -0.6471715, 3.08216, -11.9773655)
+explosion_scene = ExtResource("3_hujxm")
 car_model_scene = ExtResource("4_a8run")
 
 [node name="TrackManager" parent="." unique_id=294631157 node_paths=PackedStringArray("player") instance=ExtResource("5_ouso4")]

@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://duxd8tiil4ouv"]
+
+[ext_resource type="Script" uid="uid://bfmikgvymh0w8" path="res://scenes/player/explosion.gd" id="1_adii6"]
+[ext_resource type="Shader" uid="uid://cvkd8cwnmnm5s" path="res://scenes/player/Explosion.gdshader" id="2_mx41k"]
+
+[sub_resource type="Gradient" id="Gradient_fv3l2"]
+offsets = PackedFloat32Array(0, 0.3, 0.5, 0.8, 1)
+colors = PackedColorArray(1, 0.95686275, 0.5647059, 1, 1, 0.54901963, 0, 1, 1, 0.23137255, 0.23137255, 1, 0.25882354, 0.25882354, 0.25882354, 1, 0.06666667, 0.06666667, 0.06666667, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_2yjle"]
+gradient = SubResource("Gradient_fv3l2")
+
+[sub_resource type="Curve" id="Curve_mx41k"]
+_data = [Vector2(0.005952388, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_0alai"]
+curve = SubResource("Curve_mx41k")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_fv3l2"]
+emission_shape_scale = Vector3(0.4, 0.3, 0.7)
+emission_shape = 1
+emission_sphere_radius = 2.0
+direction = Vector3(0, 1, 0)
+spread = 180.0
+initial_velocity_min = 5.0
+initial_velocity_max = 10.0
+scale_curve = SubResource("CurveTexture_0alai")
+color_ramp = SubResource("GradientTexture1D_2yjle")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mx41k"]
+render_priority = 0
+shader = ExtResource("2_mx41k")
+shader_parameter/glow_multiplier = 6.0000002375
+
+[sub_resource type="BoxMesh" id="BoxMesh_adii6"]
+material = SubResource("ShaderMaterial_mx41k")
+size = Vector3(0.1, 0.1, 0.1)
+
+[node name="Explosion" type="Node3D" unique_id=1858827273]
+script = ExtResource("1_adii6")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="." unique_id=26779468]
+emitting = false
+amount = 100
+one_shot = true
+process_material = SubResource("ParticleProcessMaterial_fv3l2")
+draw_pass_1 = SubResource("BoxMesh_adii6")
