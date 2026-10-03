@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://w18hi4430yl8"]
+
+[ext_resource type="PackedScene" uid="uid://cgnq58u4nxaoa" path="res://assets/obstacle/FBX/fence.fbx" id="1_7g223"]
+[ext_resource type="Script" uid="uid://dawbdelns5vi6" path="res://scenes/obstacle/obstacle.gd" id="1_22en1"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7g223"]
+size = Vector3(1.0629883, 0.41723633, 0.24227905)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8ri8m"]
+size = Vector3(1.0810852, 0.43115234, 0.2562561)
+
+[node name="Fence" type="StaticBody3D" unique_id=384178719]
+script = ExtResource("1_22en1")
+max_scale = 2.0
+
+[node name="fence" parent="." unique_id=947928132 instance=ExtResource("1_7g223")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1656015015]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.009033203, 0.2052002, 0.004135132)
+shape = SubResource("BoxShape3D_7g223")
+
+[node name="HitBox" type="Area3D" parent="." unique_id=1105913158]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitBox" unique_id=988444194]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0062408447, 0.20507813, 0.005722046)
+shape = SubResource("BoxShape3D_8ri8m")
