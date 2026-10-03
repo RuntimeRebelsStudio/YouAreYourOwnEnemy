@@ -1,5 +1,7 @@
 extends VehicleBody3D
 
+
+
 @export var explosion_scene: PackedScene
 
 @export var car_model_scene: PackedScene
@@ -25,6 +27,10 @@ var speed_print_timer: float = 0.0
 # Car Death 
 signal car_died
 var is_dead: bool = false
+
+# Ghost Mechanic
+var current_run_data: Array[Transform3D] = []
+var is_recording: bool = true
 
 
 # --- SLOW ZONE / PATCH LOGIC (Einfach) ---
@@ -103,6 +109,12 @@ func exit_slow_zone() -> void:
 func _physics_process(delta: float) -> void:
 	if is_dead:
 		return
+
+	# Record position for ghost mechanic	
+	if is_recording:
+		current_run_data.append(global_transform)
+	
+	
 	
 	
 	# Aktuelle Geschwindigkeit in Metern pro Sekunde
@@ -186,6 +198,12 @@ func die() -> void:
 	
 	# Send Signal
 	car_died.emit()
+
+	print("--- DEBUG DIE ---")
+	print("1. Frames aufgenommen: ", current_run_data.size())
+	print("2. Ist car_model_scene zugewiesen? ", car_model_scene != null)
+	
+	GameManager.save_ghost_data(current_run_data, car_model_scene)
 	
 	if explosion_scene:
 		var explosion = explosion_scene.instantiate() as Node3D
@@ -195,6 +213,9 @@ func die() -> void:
 		
 		# Place at car's global position
 		explosion.global_position = global_position
+		
+		
+	GameManager.respawn_level()
 	
 	
 	

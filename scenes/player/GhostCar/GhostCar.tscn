@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://g2yw6uhuqfjt"]
+
+[ext_resource type="Script" uid="uid://6ytckfosxj1e" path="res://scenes/player/GhostCar/ghost_car.gd" id="1_tkbgm"]
+[ext_resource type="Material" uid="uid://c0ldj515r1hrb" path="res://scenes/player/GhostCar/ghost_material.tres" id="2_7i323"]
+
+[node name="GhostCar" type="Node3D" unique_id=939367394]
+script = ExtResource("1_tkbgm")
+ghost_material = ExtResource("2_7i323")

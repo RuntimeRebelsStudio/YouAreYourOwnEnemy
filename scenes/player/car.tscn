@@ -1,10 +1,12 @@
 [gd_scene format=3 uid="uid://682oje5enrdc"]
 
 [ext_resource type="Script" uid="uid://coiv88be6no1f" path="res://scenes/player/car.gd" id="1_janxj"]
+[ext_resource type="PackedScene" uid="uid://duxd8tiil4ouv" path="res://scenes/player/Explosion.tscn" id="2_4vl2h"]
 [ext_resource type="PackedScene" uid="uid://bbblyk4e73i3" path="res://scenes/player/Cars/ice_cream_truck_1.tscn" id="2_db5j1"]
 
 [node name="Car" type="VehicleBody3D" unique_id=1032363274]
 script = ExtResource("1_janxj")
+explosion_scene = ExtResource("2_4vl2h")
 car_model_scene = ExtResource("2_db5j1")
 
 [node name="Front_Right" type="VehicleWheel3D" parent="." unique_id=546566244]
