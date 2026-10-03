@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://40itcwpclq2x"]
+
+[ext_resource type="Script" uid="uid://bpfhsmflvjlc5" path="res://scenes/track/track_chunk.gd" id="1_c1u5b"]
+[ext_resource type="Texture2D" uid="uid://cdygqffwr1f66" path="res://assets/track/Road007_1K-JPG_Color.jpg" id="2_lmhfc"]
+
+[node name="TrackChunk" type="StaticBody3D" unique_id=443274225]
+script = ExtResource("1_c1u5b")
+road_texture = ExtResource("2_lmhfc")
+
+[node name="MeshInstance" type="MeshInstance3D" parent="." unique_id=1918029248]
+
+[node name="CollisionShape" type="CollisionShape3D" parent="." unique_id=1268314065]
