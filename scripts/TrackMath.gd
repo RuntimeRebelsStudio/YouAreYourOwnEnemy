@@ -142,11 +142,12 @@ static func get_closest_s(pos: Vector3) -> float:
 	return best_idx * step_size
 	
 # Gibt Spawndaten deterministisch und quer über die ganze Fahrbahn verteilt zurück
-# In TrackMath.gd:
-
 static func get_obstacle_info(s: float, asset_count: int) -> Dictionary:
 	if asset_count == 0:
 		return {"has_obstacle": false}
+		
+	if s < 30.0:
+		return {"has_obstacle": false} # Sicherer Startbereich
 
 	# --- 1. SCHWIERIGKEITS-SKALIERUNG BERECHNEN ---
 	# Nach wie vielen Metern soll die maximale Dichte erreicht sein? (z.B. 3000 Meter)

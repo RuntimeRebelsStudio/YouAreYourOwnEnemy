@@ -120,11 +120,17 @@ func spawn_obstacle_at(s: float, offset_ratio: float, scene_to_spawn: PackedScen
 
 	var idx := int(s / TrackMath.step_size)
 	TrackMath.ensure_calculated_up_to(idx + 1)
-
+	var current_width := TrackMath.widths[idx]
+	
 	var center_pos := TrackMath.points[idx]
 	var norm := TrackMath.normals[idx]
 	var half_w := TrackMath.widths[idx] / 2.0
-
+	
+	var final_scale_factor : float
+	# Bei sehr engen Abschnitten (z. B. < 8m) Skalierung begrenzen und Kanten freihalten
+	if current_width < 8.0:
+		final_scale_factor = minf(final_scale_factor, 1.5) # Nicht riesig werden lassen
+		offset_ratio = clampf(offset_ratio, -0.4, 0.4) # Eher mittig/kontrolliert halten
 	var spawn_pos := center_pos + norm * (half_w * offset_ratio)
 
 	var obs := scene_to_spawn.instantiate() as Node3D
@@ -150,5 +156,6 @@ func spawn_obstacle_at(s: float, offset_ratio: float, scene_to_spawn: PackedScen
 		max_s = obs.max_scale
 
 	# Interpoliert individuell für dieses Objekt
-	var final_scale_factor : float = lerp(min_s, max_s, scale_ratio)
+	if current_width >= 8.0: final_scale_factor = lerp(min_s, max_s, scale_ratio)
+		
 	obs.scale = Vector3.ONE * final_scale_factor
