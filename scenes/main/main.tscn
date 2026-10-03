@@ -36,8 +36,6 @@ car = NodePath("../Car")
 [node name="Car" parent="." unique_id=1032363274 instance=ExtResource("3_b1x3f")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -0.6471715, 3.08216, -11.9773655)
 center_of_mass_mode = 1
-explosion_scene = ExtResource("3_hujxm")
-car_model_scene = ExtResource("4_a8run")
 
 [node name="TrackManager" parent="." unique_id=294631157 node_paths=PackedStringArray("player") instance=ExtResource("5_ouso4")]
 script = ExtResource("6_blune")
