@@ -6,7 +6,12 @@ static var noise_macro := FastNoiseLite.new()   # Hauptkurven
 static var noise_micro := FastNoiseLite.new()   # Schnelle S-Kurven / Schikanen
 static var noise_sharp := FastNoiseLite.new()   # Seltene, scharfe Haken
 
+# DAS NOCH BALANCEN:
 static var step_size: float = 2.0
+static var max_difficulty_distance: float = 250.0
+static var min_spawn_prob: float = 0.40
+static var max_spawn_prob: float = 0.95
+
 
 # --- SANDUHR-BREITEN ---
 static var min_track_width: float = 5.0   # Echtes Engpass-Nadelöhr
@@ -137,21 +142,35 @@ static func get_closest_s(pos: Vector3) -> float:
 	return best_idx * step_size
 	
 # Gibt Spawndaten deterministisch und quer über die ganze Fahrbahn verteilt zurück
+# In TrackMath.gd:
+
 static func get_obstacle_info(s: float, asset_count: int) -> Dictionary:
 	if asset_count == 0:
 		return {"has_obstacle": false}
 
-	# 1. Zone prüfen
+	# --- 1. SCHWIERIGKEITS-SKALIERUNG BERECHNEN ---
+	# Nach wie vielen Metern soll die maximale Dichte erreicht sein? (z.B. 3000 Meter)
+	var progress := clampf(s / max_difficulty_distance, 0.0, 1.0) # 0.0 am Start -> 1.0 nach 3000m
+
+	# Wahrscheinlichkeit steigt von 20% (Start) auf max. 65% (Late Game)
+	var current_spawn_prob : float = lerp(min_spawn_prob, max_spawn_prob, progress)
+
+	# Auch die Zonen-Einschränkung öffnet sich sanft (Start: nur dichte Zonen, später: fast überall)
+	var zone_threshold : float = lerp(0.05, -0.25, progress)
+
+
+	# --- 2. ZONE UND SPAWN-CHANCE PRÜFEN ---
 	var zone_density := noise_obs_spawn.get_noise_1d(s)
 
-	if zone_density > -0.1:
+	if zone_density > zone_threshold:
 		var step_id := int(s)
 
-		# 2. Hash für das Auftauchen
+		# Deterministischer Hash für das Auftauchen
 		var spawn_hash := posmod(hash(step_id * 73856093 ^ noise_obs_spawn.seed), 100000)
 		var spawn_chance := (spawn_hash % 100) / 100.0
 
-		if spawn_chance < 0.45:
+		# Dynamische Prüfung basierend auf dem aktuellen Fortschritt (s)
+		if spawn_chance < current_spawn_prob:
 			# 3. Asset-Index wählen
 			var type_hash := posmod(hash(step_id * 19349663 ^ (noise_obs_spawn.seed + 99)), 100000)
 			var selected_index := type_hash % asset_count
@@ -161,11 +180,11 @@ static func get_obstacle_info(s: float, asset_count: int) -> Dictionary:
 			var normalized_pos := (pos_hash % 1001) / 1000.0
 			var offset_ratio := (normalized_pos * 1.7) - 0.85
 
-			# 5. Rotation (0.0 bis 359.9 Grad)
+			# 5. Rotation (0 bis 360 Grad)
 			var rot_hash := posmod(hash(step_id * 9182731 ^ (noise_obs_spawn.seed + 123)), 100000)
 			var rotation_deg := (rot_hash % 3600) / 10.0
 
-			# 6. DETERMINISTISCHES SKALIERUNGS-VERHÄLTNIS (0.0 bis 1.0)
+			# 6. Skalierungs-Verhältnis (0.0 bis 1.0)
 			var scale_hash := posmod(hash(step_id * 482711 ^ (noise_obs_spawn.seed + 222)), 100000)
 			var scale_ratio := (scale_hash % 1001) / 1000.0
 
