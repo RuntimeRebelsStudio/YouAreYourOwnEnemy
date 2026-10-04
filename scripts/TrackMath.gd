@@ -139,6 +139,19 @@ static func get_closest_s(pos: Vector3) -> float:
 			best_idx = i
 
 	last_known_s_idx = best_idx
+	
+	if best_idx < points.size() - 1:
+		var p1 :=  points[best_idx]
+		var p2 := points[best_idx + 1]
+		var segment := p2 - p1
+		var seg_len_sq := segment.length_squared()
+		
+		if seg_len_sq > 0.0001:
+			var t:= (pos- p1).dot(segment) / seg_len_sq
+			t = clampf(t, 0.0, 1.0)
+			return (float(best_idx) + t) * step_size
+			
+	
 	return best_idx * step_size
 	
 # Gibt Spawndaten deterministisch und quer über die ganze Fahrbahn verteilt zurück

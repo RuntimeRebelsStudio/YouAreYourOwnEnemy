@@ -1,31 +1,31 @@
 extends Camera3D
 
-@export var car: Node3D 
+@export var car: VehicleBody3D 
 @export var offset: Vector3 = Vector3(-5, 10, 10) 
-@export var follow_speed: float = 15.0
-@export var track_smooth_speed: float = 12.0 # Wie weich der Streckenverlauf nachgezogen wird
+@export var follow_speed: float = 12.0
+@export var rotation_speed: float = 10.0
+@export var track_smooth_speed: float = 10.0
 
 var smoothed_s: float = -1.0
 
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	if not car:
 		return
 	
-	# 1. Rohen Strecken-Index vom Auto holen
+	# 1. Get smooth continuous track progress
 	var raw_player_s := TrackMath.get_closest_s(car.global_position)
 	
-	# Beim Start einmalig initialisieren, damit die Kamera nicht von 0 herankriecht
 	if smoothed_s < 0.0:
 		smoothed_s = raw_player_s
 	
-	# 2. Den Streckenwert selbst glätten (verhindert das nervige Springen/Zucken)
-	smoothed_s = lerp(smoothed_s, raw_player_s, track_smooth_speed * delta)
+	# 2. Frame-rate independent exponential smoothing on track progress
+	smoothed_s = lerp(smoothed_s, raw_player_s, 1.0 - exp(-track_smooth_speed * delta))
 	
-	# 3. Mit dem geglätteten Wert arbeiten
+	# 3. Compute continuous track orientation & basis
 	var float_idx := smoothed_s / TrackMath.step_size
 	var i1 := int(floor(float_idx))
 	var i2 := i1 + 1
-	var frac := float_idx - i1
+	var frac := float_idx - float(i1)
 	
 	TrackMath.ensure_calculated_up_to(i2 + 2)
 	if i2 >= TrackMath.points.size():
@@ -39,10 +39,11 @@ func _process(delta: float) -> void:
 	var up = Vector3.UP
 	var track_basis = Basis(right, up, -forward).orthonormalized()
 	
+	# 4. Smooth camera position tracking
 	var target_pos = car.global_position + track_basis * offset
+	global_position = global_position.lerp(target_pos, 1.0 - exp(-follow_speed * delta))
 	
-	# 4. Kamera-Position weich nachziehen
-	global_position = global_position.lerp(target_pos, follow_speed * delta)
-	
-	# 5. Blick permanent auf das Auto richten
-	look_at(car.global_position + Vector3(0, 1, 0), Vector3.UP)
+	# 5. Smooth camera orientation look-at (Eliminates distant blur/twitching)
+	var target_look_at = car.global_position + Vector3(0, 1.2, 0)
+	var target_transform = transform.looking_at(target_look_at, Vector3.UP)
+	global_transform.basis = global_transform.basis.slerp(target_transform.basis, 1.0 - exp(-rotation_speed * delta))
