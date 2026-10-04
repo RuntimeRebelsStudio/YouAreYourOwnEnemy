@@ -2,8 +2,10 @@
 
 [ext_resource type="Script" uid="uid://bpfhsmflvjlc5" path="res://scenes/track/track_chunk.gd" id="1_c1u5b"]
 [ext_resource type="Texture2D" uid="uid://cdygqffwr1f66" path="res://assets/track/Road007_1K-JPG_Color.jpg" id="2_joh5a"]
+[ext_resource type="PackedScene" uid="uid://txsipcjmoqrm" path="res://scenes/obstacle/barrierRed.tscn" id="3_3yspm"]
 [ext_resource type="PackedScene" uid="uid://w18hi4430yl8" path="res://scenes/obstacle/fence.tscn" id="3_joh5a"]
 [ext_resource type="PackedScene" uid="uid://bpg7mlyejki43" path="res://scenes/obstacle/rocks-low.tscn" id="4_hvr2s"]
+[ext_resource type="PackedScene" uid="uid://b5bdbdhyuarhc" path="res://scenes/obstacle/barrierWhite.tscn" id="4_tinqj"]
 [ext_resource type="PackedScene" uid="uid://cdbh3i6uulvxm" path="res://scenes/obstacle/tree.tscn" id="5_06kto"]
 [ext_resource type="PackedScene" uid="uid://c41qrik1upfj0" path="res://scenes/obstacle/character-archer.tscn" id="6_hvr2s"]
 [ext_resource type="PackedScene" uid="uid://ctqlorav2l0je" path="res://scenes/obstacle/flag.tscn" id="7_06kto"]
@@ -20,6 +22,9 @@
 [node name="TrackChunk" type="StaticBody3D" unique_id=443274225]
 script = ExtResource("1_c1u5b")
 road_texture = ExtResource("2_joh5a")
+fence_scene_a = ExtResource("3_3yspm")
+fence_scene_b = ExtResource("4_tinqj")
+fence_spacing = 2.0
 obstacle_scenes = Array[PackedScene]([ExtResource("5_06kto"), ExtResource("8_3ujw3"), ExtResource("4_hvr2s"), ExtResource("7_06kto"), ExtResource("3_joh5a"), ExtResource("9_u0o3u"), ExtResource("6_hvr2s"), ExtResource("10_b8ivy"), ExtResource("11_pifpi"), ExtResource("12_egvxw"), ExtResource("13_u2be5"), ExtResource("9_u0o3u"), ExtResource("5_06kto"), ExtResource("13_u2be5")])
 patch_scenes = Array[PackedScene]([ExtResource("9_544tm"), ExtResource("10_556pl"), ExtResource("16_u2be5")])
 
