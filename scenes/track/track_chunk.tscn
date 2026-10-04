@@ -14,14 +14,13 @@
 [ext_resource type="PackedScene" uid="uid://bx324nd5hgaa1" path="res://scenes/obstacle/box.tscn" id="10_b8ivy"]
 [ext_resource type="PackedScene" uid="uid://cr3cxry76m15i" path="res://scenes/obstacle/tracktor-shovel.tscn" id="11_pifpi"]
 [ext_resource type="PackedScene" uid="uid://c2yoq0dr5pqrg" path="res://scenes/obstacle/snowman.tscn" id="12_egvxw"]
-[ext_resource type="PackedScene" uid="uid://hst4bjqfi5bk" path="res://scenes/obstacle/sand_foliage_patch.tscn" id="13_b8ivy"]
 [ext_resource type="PackedScene" uid="uid://c452hmrrmfxvi" path="res://scenes/obstacle/pine_fall.tscn" id="13_u2be5"]
 
 [node name="TrackChunk" type="StaticBody3D" unique_id=443274225]
 script = ExtResource("1_c1u5b")
 road_texture = ExtResource("2_joh5a")
 obstacle_scenes = Array[PackedScene]([ExtResource("5_06kto"), ExtResource("8_3ujw3"), ExtResource("4_hvr2s"), ExtResource("7_06kto"), ExtResource("3_joh5a"), ExtResource("9_u0o3u"), ExtResource("6_hvr2s"), ExtResource("10_b8ivy"), ExtResource("11_pifpi"), ExtResource("12_egvxw"), ExtResource("13_u2be5")])
-patch_scenes = Array[PackedScene]([ExtResource("13_b8ivy"), ExtResource("9_544tm"), ExtResource("10_556pl")])
+patch_scenes = Array[PackedScene]([ExtResource("9_544tm"), ExtResource("9_544tm"), ExtResource("10_556pl")])
 
 [node name="MeshInstance" type="MeshInstance3D" parent="." unique_id=1918029248]
 
