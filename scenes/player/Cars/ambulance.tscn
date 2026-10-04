@@ -373,6 +373,9 @@ wheel_fr = NodePath("Wheel_Fr")
 wheel_bl = NodePath("Wheel_Bl")
 wheel_br = NodePath("Wheel_Br")
 vehicle_mass = 1500.0
+max_torque = 4000.0
+absolute_max_rpm = 950.0
+rpm_acceleration = 60.0
 metadata/_custom_type_script = "uid://bdm4cy4u3orcu"
 
 [node name="Ambulance2" type="MeshInstance3D" parent="." unique_id=261041169]

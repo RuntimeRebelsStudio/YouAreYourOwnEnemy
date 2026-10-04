@@ -1,8 +1,8 @@
 [gd_scene format=4 uid="uid://da4vgtnv0sj6"]
 
 [ext_resource type="Script" uid="uid://bdm4cy4u3orcu" path="res://scenes/player/car_model.gd" id="1_1gxsa"]
-[ext_resource type="Texture2D" uid="uid://dcmst03lnrlsu" path="res://scenes/player/CarModels/textures/City Atlas Map.png" id="2_ex0ya"]
-[ext_resource type="Texture2D" uid="uid://dtwmnag70tts4" path="res://scenes/player/CarModels/textures/Windows.png" id="3_pjcud"]
+[ext_resource type="Texture2D" uid="uid://dcmst03lnrlsu" path="res://scenes/player/CarModels/Textures/City Atlas Map.png" id="2_ex0ya"]
+[ext_resource type="Texture2D" uid="uid://dtwmnag70tts4" path="res://scenes/player/CarModels/Textures/Windows.png" id="3_pjcud"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tq4jd"]
 resource_name = "City Metal"
@@ -378,7 +378,9 @@ wheel_fl = NodePath("W_FL")
 wheel_fr = NodePath("W_FR")
 wheel_bl = NodePath("W_BL")
 wheel_br = NodePath("W_BR")
-vehicle_mass = 1000.0
+vehicle_mass = 1500.0
+max_torque = 4000.0
+rpm_acceleration = 80.0
 metadata/_custom_type_script = "uid://bdm4cy4u3orcu"
 
 [node name="Car_2_5" type="MeshInstance3D" parent="." unique_id=819821338]

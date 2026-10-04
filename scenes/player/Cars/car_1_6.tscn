@@ -292,7 +292,9 @@ wheel_fl = NodePath("Wheel_Fl")
 wheel_fr = NodePath("Wheel_Fr")
 wheel_bl = NodePath("Wheel_Bl")
 wheel_br = NodePath("Wheel_Br")
-vehicle_mass = 1000.0
+vehicle_mass = 1500.0
+max_torque = 4000.0
+rpm_acceleration = 80.0
 metadata/_custom_type_script = "uid://bdm4cy4u3orcu"
 
 [node name="Car_1_7" type="MeshInstance3D" parent="." unique_id=273682129]
