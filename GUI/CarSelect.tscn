@@ -8,10 +8,13 @@
 [ext_resource type="PackedScene" uid="uid://bxe2uyenyxy8q" path="res://scenes/player/Cars/ambulance.tscn" id="6_v230j"]
 [ext_resource type="PackedScene" uid="uid://rmkwg5vlboyu" path="res://scenes/player/Cars/car_1_6.tscn" id="7_xqc6h"]
 [ext_resource type="PackedScene" uid="uid://da4vgtnv0sj6" path="res://scenes/player/Cars/car_2_4.tscn" id="8_bx2a2"]
+[ext_resource type="PackedScene" uid="uid://c75204f1gn5f4" path="res://scenes/player/Cars/pickUp_16.tscn" id="9_e1gmd"]
+[ext_resource type="PackedScene" uid="uid://camv3h60qcgl3" path="res://scenes/player/Cars/policeCar.tscn" id="10_8c0v0"]
+[ext_resource type="PackedScene" uid="uid://w7pjt708cos3" path="res://scenes/player/Cars/sportCar_5.tscn" id="11_ndi5o"]
 
 [node name="CarSelect" type="Node3D" unique_id=616178723]
 script = ExtResource("1_wibtg")
-available_cars = Array[PackedScene]([ExtResource("2_fb1jm"), ExtResource("3_g8efx"), ExtResource("4_g8efx"), ExtResource("5_r66ip"), ExtResource("6_v230j"), ExtResource("7_xqc6h"), ExtResource("8_bx2a2")])
+available_cars = Array[PackedScene]([ExtResource("2_fb1jm"), ExtResource("3_g8efx"), ExtResource("4_g8efx"), ExtResource("5_r66ip"), ExtResource("6_v230j"), ExtResource("7_xqc6h"), ExtResource("8_bx2a2"), ExtResource("9_e1gmd"), ExtResource("10_8c0v0"), ExtResource("11_ndi5o")])
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1113072113]
 transform = Transform3D(1, 0, 0, 0, 0.93946666, 0.3426403, 0, -0.3426403, 0.93946666, 0, 1.4966359, 3.1056657)

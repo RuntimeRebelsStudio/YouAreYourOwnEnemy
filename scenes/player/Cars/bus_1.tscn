@@ -1,8 +1,8 @@
 [gd_scene format=4 uid="uid://cp534rm1nh65a"]
 
 [ext_resource type="Script" uid="uid://bdm4cy4u3orcu" path="res://scenes/player/car_model.gd" id="1_xtyli"]
-[ext_resource type="Texture2D" uid="uid://dcmst03lnrlsu" path="res://scenes/player/CarModels/textures/City Atlas Map.png" id="2_t8hgq"]
-[ext_resource type="Texture2D" uid="uid://dtwmnag70tts4" path="res://scenes/player/CarModels/textures/Windows.png" id="3_ypw30"]
+[ext_resource type="Texture2D" uid="uid://dcmst03lnrlsu" path="res://scenes/player/CarModels/Textures/City Atlas Map.png" id="2_t8hgq"]
+[ext_resource type="Texture2D" uid="uid://dtwmnag70tts4" path="res://scenes/player/CarModels/Textures/Windows.png" id="3_ypw30"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_70vt6"]
 resource_name = "Met"
@@ -359,7 +359,7 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_bcpxj")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7vq2e"]
-size = Vector3(1.2929077, 1.2519836, 3.1889648)
+size = Vector3(1.2929077, 1.2519836, 2.5788574)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_8ri8m"]
 size = Vector3(1.2990723, 0.4392395, 0.22570801)
@@ -367,10 +367,13 @@ size = Vector3(1.2990723, 0.4392395, 0.22570801)
 [sub_resource type="BoxShape3D" id="BoxShape3D_6v33g"]
 size = Vector3(1.2896729, 0.42993164, 0.29467773)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_8nufa"]
+size = Vector3(1.256897, 0.17736816, 0.57141113)
+
 [node name="bus_1" type="Area3D" unique_id=1961335523 node_paths=PackedStringArray("body_mesh", "collision_shapes", "wheel_fl", "wheel_fr", "wheel_bl", "wheel_br")]
 script = ExtResource("1_xtyli")
 body_mesh = NodePath("Bus_2")
-collision_shapes = [NodePath("CollisionShape3D"), NodePath("CollisionShape3D2"), NodePath("CollisionShape3D3")]
+collision_shapes = [NodePath("CollisionShape3D"), NodePath("CollisionShape3D2"), NodePath("CollisionShape3D3"), NodePath("CollisionShape3D4")]
 wheel_fl = NodePath("Whel_FL")
 wheel_fr = NodePath("Whel_FR")
 wheel_bl = NodePath("Whel_BL")
@@ -399,7 +402,7 @@ transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1
 mesh = SubResource("ArrayMesh_wyd1m")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2088769325]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0010681152, 0.9268646, 0.00024414063)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0010681152, 0.9268646, -0.30480957)
 shape = SubResource("BoxShape3D_7vq2e")
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="." unique_id=491821036]
@@ -409,3 +412,7 @@ shape = SubResource("BoxShape3D_8ri8m")
 [node name="CollisionShape3D3" type="CollisionShape3D" parent="." unique_id=1285297114]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0032348633, 0.12658691, -1.5474854)
 shape = SubResource("BoxShape3D_6v33g")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="." unique_id=705662251]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.001373291, 0.48138428, 1.2733765)
+shape = SubResource("BoxShape3D_8nufa")
