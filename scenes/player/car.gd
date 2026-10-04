@@ -32,6 +32,12 @@ var is_dead: bool = false
 var current_run_data: Array[Transform3D] = []
 var is_recording: bool = true
 
+# --- GHOST SABOTAGE ---
+var sabotage_timer: float = 0.0
+var total_sabotage_duration: float = 1.0 # Speichert die Ursprungsdauer für die Prozentrechnung
+var is_sabotaged: bool = false
+var sabotage_material: StandardMaterial3D # Das rote Kraftfeld
+
 
 # --- SLOW ZONE / PATCH LOGIC (Einfach) ---
 var current_slow_factor: float = 1.0
@@ -117,7 +123,12 @@ func _ready() -> void:
 		
 		v.position = Vector3.ZERO
 		v.rotation = Vector3.ZERO
-		
+	
+	# --- VISUELLES SABOTAGE-MATERIAL ERSTELLEN ---
+	sabotage_material = StandardMaterial3D.new()
+	sabotage_material.albedo_color = Color(1.0, 0.1, 0.1, 0.8) # Kräftiges Rot, 80% Deckkraft
+	sabotage_material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	sabotage_material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED # Leuchtet ohne Schatten
 
 # --- SLOW ZONE STEUERUNG (Direkt ohne Zähler) ---
 func enter_slow_zone(factor: float) -> void:
@@ -125,6 +136,15 @@ func enter_slow_zone(factor: float) -> void:
 
 func exit_slow_zone() -> void:
 	current_slow_factor = 1.0
+
+func hit_by_ghost_pulse(duration: float) -> void:
+	is_sabotaged = true
+	sabotage_timer = duration
+	total_sabotage_duration = duration # Sichern für den Fade-Out
+	
+	# Legt das rote Material über die normale Textur des Autos
+	if current_car_model and current_car_model.body_mesh:
+		current_car_model.body_mesh.material_overlay = sabotage_material
 
 
 func _physics_process(delta: float) -> void:
@@ -149,28 +169,50 @@ func _physics_process(delta: float) -> void:
 	if is_recording:
 		current_run_data.append(global_transform)
 	
-	
-	
-	
+	# --- SABOTAGE TIMER ---
+	if is_sabotaged:
+		sabotage_timer -= delta
+		
+		# Visueller Countdown: Das Rot verblasst fließend
+		var remaining_percent := sabotage_timer / total_sabotage_duration
+		# Multipliziert mit 0.8, da wir bei max. 60% Deckkraft starten
+		sabotage_material.albedo_color.a = remaining_percent * 0.6
+		
+		if sabotage_timer <= 0.0:
+			is_sabotaged = false
+			
+			# Visuellen Effekt entfernen, Steuerung ist wieder frei
+			if current_car_model and current_car_model.body_mesh:
+				current_car_model.body_mesh.material_overlay = null
+
+
+	# --- LENKUNG ---
 	# Aktuelle Geschwindigkeit in Metern pro Sekunde
 	var current_speed := linear_velocity.length()
-
-	# Lenkwinkel reduzieren, je schneller das Auto fährt (ab ca. 30 m/s ist der Einschlag minimal)
 	var speed_factor : float = clamp(current_speed / 30.0, 0.0, 1.0)
 	var dynamic_max_steer : float = lerp(max_steer_angle, 0.1, speed_factor)
 
 	var steer_target := Input.get_axis("right", "left") * dynamic_max_steer
+	
+	# WENN SABOTIERT: Lenkung invertieren und leicht schwächen
+	if is_sabotaged:
+		steer_target = -steer_target * 0.8
+		
 	steering = move_toward(steering, steer_target, steer_speed * delta)
 
 	# Auto fährt dauerhaft nach vorne
 	var accel := 1.0
-	#var accel := Input.get_axis("backward", "forward")
 	
 	# Max-RPM kontinuierlich mit der Zeit erhöhen bis zum Limit
 	current_max_rpm = move_toward(current_max_rpm, absolute_max_rpm, rpm_acceleration * delta)
 	
-	# Dynamische Skalierung von Drehmoment und Max-RPM
+	# --- DREHMOMENT ---
 	var effective_torque := max_torque * current_slow_factor
+	
+	# WENN SABOTIERT: Motorleistung bricht extrem ein
+	if is_sabotaged:
+		effective_torque *= 0.3 
+		
 	var effective_max_rpm := current_max_rpm * current_slow_factor
 
 	var rpmBL = abs($Back_Left.get_rpm())
