@@ -21,6 +21,9 @@ sky_material = SubResource("ProceduralSkyMaterial_hujxm")
 [sub_resource type="Environment" id="Environment_b1x3f"]
 background_mode = 2
 sky = SubResource("Sky_yyfjg")
+ambient_light_source = 3
+ambient_light_color = Color(0.6481579, 0.54822296, 0.33186054, 1)
+ambient_light_energy = 3.0
 glow_enabled = true
 glow_intensity = 0.8
 
@@ -50,3 +53,10 @@ chunk_scene = ExtResource("7_th5th")
 [node name="Hud" parent="." unique_id=1928233953 instance=ExtResource("9_b1x3f")]
 
 [node name="SpawnPoint" type="Node3D" parent="." unique_id=2004835948]
+
+[node name="Sun" type="DirectionalLight3D" parent="." unique_id=708755813]
+transform = Transform3D(0.8660254, 0.38302222, -0.32139382, 0, 0.64278764, 0.76604444, 0.5, -0.66341394, 0.5566704, 0, 0, 0)
+light_energy = 0.1
+light_indirect_energy = 0.5
+shadow_enabled = true
+directional_shadow_max_distance = 150.0
