@@ -72,4 +72,5 @@ text = "▶"
 [node name="PlayButton" type="Button" parent="UI/Control/BottomPanel/VBoxContainer" unique_id=1133074832]
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_colors/font_color = Color(1, 0.28235295, 0.019607844, 1)
 text = "PLAY"

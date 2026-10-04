@@ -45,19 +45,24 @@ layout_mode = 2
 
 [node name="PlayAgainButton" type="Button" parent="Panel/VBoxContainer" unique_id=420820593]
 layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.28235295, 0.019607844, 1)
 text = "Play Again"
 
 [node name="CarSelectButton" type="Button" parent="Panel/VBoxContainer" unique_id=1359641135]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.404465, 0.9999998, 0.7785385, 1)
 text = "Change Car"
 
 [node name="TitleLabel" type="Label" parent="Panel/VBoxContainer" unique_id=601985074]
 layout_mode = 2
 text = "Game Summary"
+horizontal_alignment = 1
 
 [node name="ScoreLabel" type="Label" parent="Panel/VBoxContainer" unique_id=966114473]
 layout_mode = 2
 text = "Best Score:  0"
+horizontal_alignment = 1
+vertical_alignment = 2
 
 [node name="RoundLabel" type="Label" parent="Panel/VBoxContainer" unique_id=18246071]
 layout_mode = 2
