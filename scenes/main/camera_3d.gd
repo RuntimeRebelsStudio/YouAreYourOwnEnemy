@@ -22,7 +22,7 @@ func _physics_process(delta: float) -> void:
 	smoothed_s = lerp(smoothed_s, raw_player_s, 1.0 - exp(-track_smooth_speed * delta))
 	
 	# 3. Compute continuous track orientation & basis
-	var float_idx := smoothed_s / TrackMath.step_size
+	var float_idx := smoothed_s / float(TrackMath.step_size)
 	var i1 := int(floor(float_idx))
 	var i2 := i1 + 1
 	var frac := float_idx - float(i1)
