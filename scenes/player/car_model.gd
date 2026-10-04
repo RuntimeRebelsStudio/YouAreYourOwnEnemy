@@ -25,13 +25,21 @@ class_name CarModel extends Area3D
 @export var min_max_rpm: float = 300.0       # Start-Höchstgeschwindigkeit
 @export var absolute_max_rpm: float = 1000.0 # Absolute Top-Geschwindigkeit
 @export var rpm_acceleration: float = 50.0   # Wie schnell die Höchstgeschwindigkeit steigt
+@export_group("Emergency Beacons")
+@export var beacon_a: Light3D
+@export var beacon_b: Light3D
+@export var beacon_enabled := false
+@export var blink_speed := 4.0 # flips per second
 
+var _t := 0.0
+func _process(delta):
+	if not beacon_enabled or beacon_a == null or beacon_b == null:
+		return
+	_t += delta * blink_speed
+	var phase := fmod(_t, 1.0) < 0.5
+	beacon_a.visible = phase
+	beacon_b.visible = not phase
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass

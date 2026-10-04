@@ -418,3 +418,25 @@ shape = SubResource("BoxShape3D_7vq2e")
 [node name="CollisionShape3D4" type="CollisionShape3D" parent="." unique_id=1264174840]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.1035156e-05, 0.27355957, -1.0511475)
 shape = SubResource("BoxShape3D_8nufa")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="." unique_id=945803800]
+transform = Transform3D(1, 0, 0, 0, -0.9949693, -0.10018047, 0, 0.10018047, -0.9949693, 0.38355288, 0.37408513, 1.0522016)
+light_energy = 3.5
+spot_range = 15.0
+
+[node name="SpotLight3D3" type="SpotLight3D" parent="." unique_id=897044373]
+transform = Transform3D(1, 0, 0, 0, -0.9949693, -0.10018047, 0, 0.10018047, -0.9949693, -0.3451282, 0.38437593, 1.0384836)
+light_energy = 3.5
+spot_range = 15.0
+
+[node name="AreaLight3D" type="AreaLight3D" parent="." unique_id=1965389245]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3735447, 0.33143646, -1.0856245)
+light_color = Color(0.9682062, 0, 0.042810358, 1)
+light_energy = 3.0
+area_size = Vector2(0.17429483, 0.12520844)
+
+[node name="AreaLight3D2" type="AreaLight3D" parent="." unique_id=1830923101]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.35206074, 0.3864205, -1.0534116)
+light_color = Color(0.9682062, 0, 0.042810358, 1)
+light_energy = 3.0
+area_size = Vector2(0.17429483, 0.12520844)

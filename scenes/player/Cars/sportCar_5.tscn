@@ -1,8 +1,8 @@
 [gd_scene format=4 uid="uid://w7pjt708cos3"]
 
 [ext_resource type="Script" uid="uid://bdm4cy4u3orcu" path="res://scenes/player/car_model.gd" id="1_nb0j0"]
-[ext_resource type="Texture2D" uid="uid://dcmst03lnrlsu" path="res://scenes/player/CarModels/textures/City Atlas Map.png" id="2_v8pud"]
-[ext_resource type="Texture2D" uid="uid://dtwmnag70tts4" path="res://scenes/player/CarModels/textures/Windows.png" id="3_jfqpv"]
+[ext_resource type="Texture2D" uid="uid://dcmst03lnrlsu" path="res://scenes/player/CarModels/Textures/City Atlas Map.png" id="2_v8pud"]
+[ext_resource type="Texture2D" uid="uid://dtwmnag70tts4" path="res://scenes/player/CarModels/Textures/Windows.png" id="3_jfqpv"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2qcux"]
 resource_name = "City Metal"
@@ -482,3 +482,25 @@ shape = SubResource("BoxShape3D_v8pud")
 [node name="CollisionShape3D4" type="CollisionShape3D" parent="." unique_id=1955962590]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0015258789, 0.18792725, -1.0299072)
 shape = SubResource("BoxShape3D_jfqpv")
+
+[node name="SpotLight3D3" type="SpotLight3D" parent="." unique_id=950173297]
+transform = Transform3D(1, 0, 0, 0, -0.9949693, -0.10018047, 0, 0.10018047, -0.9949693, 0.32883155, 0.32611984, 1.0555329)
+light_energy = 3.5
+spot_range = 15.0
+
+[node name="SpotLight3D4" type="SpotLight3D" parent="." unique_id=555154582]
+transform = Transform3D(1, 0, 0, 0, -0.9949693, -0.10018047, 0, 0.10018047, -0.9949693, -0.3507409, 0.31472224, 1.0593625)
+light_energy = 3.5
+spot_range = 15.0
+
+[node name="AreaLight3D" type="AreaLight3D" parent="." unique_id=1006783399]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.35797134, 0.40874305, -1.0796403)
+light_color = Color(0.9682062, 0, 0.042810358, 1)
+light_energy = 3.0
+area_size = Vector2(0.17429483, 0.12520844)
+
+[node name="AreaLight3D2" type="AreaLight3D" parent="." unique_id=831072227]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3641011, 0.39696038, -1.0820969)
+light_color = Color(0.9682062, 0, 0.042810358, 1)
+light_energy = 3.0
+area_size = Vector2(0.17429483, 0.12520844)

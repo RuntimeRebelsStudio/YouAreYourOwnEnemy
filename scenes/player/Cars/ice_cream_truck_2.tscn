@@ -1,8 +1,8 @@
 [gd_scene format=4 uid="uid://ejk61b8wcdqt"]
 
 [ext_resource type="Script" uid="uid://bdm4cy4u3orcu" path="res://scenes/player/car_model.gd" id="1_ype22"]
-[ext_resource type="Texture2D" uid="uid://dcmst03lnrlsu" path="res://scenes/player/CarModels/textures/City Atlas Map.png" id="2_gil87"]
-[ext_resource type="Texture2D" uid="uid://dtwmnag70tts4" path="res://scenes/player/CarModels/textures/Windows.png" id="3_ocwjc"]
+[ext_resource type="Texture2D" uid="uid://dcmst03lnrlsu" path="res://scenes/player/CarModels/Textures/City Atlas Map.png" id="2_gil87"]
+[ext_resource type="Texture2D" uid="uid://dtwmnag70tts4" path="res://scenes/player/CarModels/Textures/Windows.png" id="3_ocwjc"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_23jxm"]
 resource_name = "City Car.018"
@@ -317,3 +317,25 @@ mesh = SubResource("ArrayMesh_h0b2n")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2070383242]
 transform = Transform3D(100, 0, 0, 0, -4.371139e-06, 98, 0, -100, -4.283716e-06, 0, 0.026052684, 0)
 shape = SubResource("ConvexPolygonShape3D_0deil")
+
+[node name="SpotLight3D3" type="SpotLight3D" parent="." unique_id=1488474594]
+transform = Transform3D(1, 0, 0, 0, -0.9949693, -0.10018047, 0, 0.10018047, -0.9949693, 0.33331776, 0.2688644, 1.1613648)
+light_energy = 3.5
+spot_range = 15.0
+
+[node name="SpotLight3D4" type="SpotLight3D" parent="." unique_id=413716721]
+transform = Transform3D(1, 0, 0, 0, -0.9949693, -0.10018047, 0, 0.10018047, -0.9949693, -0.3625437, 0.2922628, 1.17359)
+light_energy = 3.5
+spot_range = 15.0
+
+[node name="AreaLight3D" type="AreaLight3D" parent="." unique_id=1746721753]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.488742, 0.20401034, -1.1513746)
+light_color = Color(0.9682062, 0, 0.042810358, 1)
+light_energy = 3.0
+area_size = Vector2(0.17429483, 0.12520844)
+
+[node name="AreaLight3D2" type="AreaLight3D" parent="." unique_id=1011962190]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.45770282, 0.1884768, -1.1427745)
+light_color = Color(0.9682062, 0, 0.042810358, 1)
+light_energy = 3.0
+area_size = Vector2(0.17429483, 0.12520844)
