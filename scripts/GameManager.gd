@@ -16,6 +16,13 @@ var current_score: float = 0
 var last_car_scene: PackedScene = null
 var last_ghost_data: Array[Transform3D] = []
 
+# track generation
+var current_seed: int = 0
+
+func generate_new_seed() -> void:
+	randomize()
+	current_seed = randi()
+
 func start_new_run() -> void:
 	if current_round <= max_rounds and current_state != GameState.GAME_SUMMARY:
 		current_state = GameState.PLAYING
@@ -70,4 +77,6 @@ func reset_game() -> void:
 	last_ghost_data.clear()
 	last_car_scene = null
 	current_state = GameState.READY
+	
+	generate_new_seed()
 	

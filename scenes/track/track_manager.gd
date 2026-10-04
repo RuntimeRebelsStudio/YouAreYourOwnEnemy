@@ -4,13 +4,20 @@ extends Node3D
 @export var chunk_scene: PackedScene
 @export var chunk_length: float = 40.0
 @export var render_distance: float = 160.0
-@export var seed_value: int = 1337
 
 var next_spawn_z: float = 0.0
 var active_chunks: Array[Node3D] = []
 
 func _ready() -> void:
-	TrackMath.init_seed(seed_value)
+	
+	var active_seed := GameManager.current_seed
+	TrackMath.reset(active_seed)
+	
+	next_spawn_z = 0.0
+	active_chunks.clear()
+	
+	while next_spawn_z < render_distance:
+		spawn_next_chunk()
 
 func _process(_delta: float) -> void:
 	if not player:

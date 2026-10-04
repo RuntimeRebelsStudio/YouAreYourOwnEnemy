@@ -18,6 +18,8 @@ config/icon="res://icon.svg"
 [autoload]
 
 GameManager="*uid://cy5kuaf0s0jl3"
+[editor_plugins]
+GameManager="*uid://cy5kuaf0s0jl3"
 [input]
 
 left={

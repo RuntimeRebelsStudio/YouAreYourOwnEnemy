@@ -9,7 +9,7 @@ script = ExtResource("1_wibtg")
 available_cars = Array[PackedScene]([ExtResource("2_fb1jm"), ExtResource("3_g8efx")])
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1113072113]
-transform = Transform3D(1, 0, 0, 0, 0.93946666, 0.3426403, 0, -0.3426403, 0.93946666, 0, 2.2329578, 5.3158255)
+transform = Transform3D(1, 0, 0, 0, 0.93946666, 0.3426403, 0, -0.3426403, 0.93946666, 0, 1.4966359, 3.1056657)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1429885253]
 
@@ -17,30 +17,59 @@ transform = Transform3D(1, 0, 0, 0, 0.93946666, 0.3426403, 0, -0.3426403, 0.9394
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=1178188916]
 
-[node name="MarginContainer" type="MarginContainer" parent="UI" unique_id=1253450319]
+[node name="Control" type="Control" parent="UI" unique_id=2070758456]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="TopPanel" type="MarginContainer" parent="UI/Control" unique_id=2047358981]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 23.0
+grow_horizontal = 2
+theme_override_constants/margin_top = 10
+
+[node name="CarNameLabel" type="Label" parent="UI/Control/TopPanel" unique_id=71482468]
+layout_mode = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BottomPanel" type="MarginContainer" parent="UI/Control" unique_id=385215340]
+layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -110.0
+offset_top = -112.0
 grow_horizontal = 2
 grow_vertical = 0
-size_flags_vertical = 4
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/MarginContainer" unique_id=1756013725]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Control/BottomPanel" unique_id=1571865705]
 layout_mode = 2
 
-[node name="CarNameLabel" type="Label" parent="UI/MarginContainer/VBoxContainer" unique_id=71482468]
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/Control/BottomPanel/VBoxContainer" unique_id=1845486418]
 layout_mode = 2
+size_flags_vertical = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/MarginContainer/VBoxContainer" unique_id=1845486418]
+[node name="LeftButton" type="Button" parent="UI/Control/BottomPanel/VBoxContainer/HBoxContainer" unique_id=527501009]
 layout_mode = 2
+size_flags_horizontal = 3
+text = "◀"
 
-[node name="LeftButton" type="Button" parent="UI/MarginContainer/VBoxContainer/HBoxContainer" unique_id=527501009]
+[node name="RightButton" type="Button" parent="UI/Control/BottomPanel/VBoxContainer/HBoxContainer" unique_id=1454545000]
 layout_mode = 2
+size_flags_horizontal = 3
+text = "▶"
 
-[node name="RightButton" type="Button" parent="UI/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1454545000]
+[node name="PlayButton" type="Button" parent="UI/Control/BottomPanel/VBoxContainer" unique_id=1133074832]
 layout_mode = 2
-
-[node name="PlayButton" type="Button" parent="UI/MarginContainer/VBoxContainer" unique_id=1133074832]
-layout_mode = 2
+size_flags_vertical = 3
+text = "PLAY"

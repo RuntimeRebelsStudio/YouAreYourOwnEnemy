@@ -3,10 +3,10 @@ extends Node3D
 @export var available_cars: Array[PackedScene] = [] # Hier deine Car1.tscn, Car2.tscn etc. zuweisen
 
 @onready var pivot: Node3D = $Pivot
-@onready var car_name_label: Label = $UI/MarginContainer/VBoxContainer/CarNameLabel
-@onready var left_button: Button = $UI/MarginContainer/VBoxContainer/HBoxContainer/LeftButton
-@onready var right_button: Button = $UI/MarginContainer/VBoxContainer/HBoxContainer/RightButton
-@onready var start_button: Button = $UI/MarginContainer/VBoxContainer/PlayButton
+@onready var car_name_label: Label = $UI/Control/TopPanel/CarNameLabel
+@onready var left_button: Button = $UI/Control/BottomPanel/VBoxContainer/HBoxContainer/LeftButton
+@onready var right_button: Button = $UI/Control/BottomPanel/VBoxContainer/HBoxContainer/RightButton
+@onready var start_button: Button = $UI/Control/BottomPanel/VBoxContainer/PlayButton
 
 var current_index: int = 0
 var current_car_instance: Node3D = null
