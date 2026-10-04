@@ -40,12 +40,22 @@ anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 23.0
 grow_horizontal = 2
+theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
 
 [node name="CarNameLabel" type="Label" parent="UI/Control/TopPanel" unique_id=71482468]
 layout_mode = 2
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="GameExplanation" type="Button" parent="UI/Control/TopPanel" unique_id=754445428]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_colors/font_color = Color(0.87, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0.87058824, 0, 0, 1)
+theme_override_font_sizes/font_size = 28
+text = "Game Explanation"
 
 [node name="BottomPanel" type="MarginContainer" parent="UI/Control" unique_id=385215340]
 layout_mode = 1
@@ -70,12 +80,12 @@ size_flags_vertical = 3
 [node name="LeftButton" type="Button" parent="UI/Control/BottomPanel/VBoxContainer/HBoxContainer" unique_id=527501009]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "◀"
+text = "<"
 
 [node name="RightButton" type="Button" parent="UI/Control/BottomPanel/VBoxContainer/HBoxContainer" unique_id=1454545000]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "▶"
+text = ">"
 
 [node name="PlayButton" type="Button" parent="UI/Control/BottomPanel/VBoxContainer" unique_id=1133074832]
 layout_mode = 2

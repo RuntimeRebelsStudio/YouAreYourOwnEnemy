@@ -1,0 +1,58 @@
+[gd_scene format=3 uid="uid://bh38no41bl0av"]
+
+[ext_resource type="Script" uid="uid://x130bnj3txln" path="res://GUI/how_to_play.gd" id="1_fcn7w"]
+
+[node name="HowToPlay" type="Control" unique_id=2108673935]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_fcn7w")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=535088803]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.124977626, 0.12229095, 0.11423231, 1)
+
+[node name="Top" type="MarginContainer" parent="ColorRect" unique_id=629689760]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 416.0
+grow_horizontal = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ColorRect/Top" unique_id=1851209714]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 28
+text = "RULES OF THE ROAD
+
+- Drive as far as you can.
+
+- Each round, you MUST beat your previous distance or it's GAME OVER.
+
+- Your past self drives beside you—and periodically flips your controls.
+
+- You have 5 rounds. Push your limits!"
+
+[node name="Bottom" type="MarginContainer" parent="ColorRect" unique_id=25190559]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -62.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Back" type="Button" parent="ColorRect/Bottom" unique_id=465300790]
+layout_mode = 2
+text = "Back to Car Select"
