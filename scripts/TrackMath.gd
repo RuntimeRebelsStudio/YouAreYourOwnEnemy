@@ -124,36 +124,11 @@ static var last_known_s_idx: int = 0
 
 static func get_closest_s(pos: Vector3) -> float:
 	ensure_calculated_up_to(last_known_s_idx + 100)
+	var result := get_track_progress_s_optimized(pos, last_known_s_idx)
+	last_known_s_idx = result["index"]
+	return result["s"]
 
-	var min_dist_sq := 1e10
-	var best_idx := last_known_s_idx
 
-	# KORREKTUR: int statt float (für range)
-	var search_start : int = max(0, last_known_s_idx - 10)
-	var search_end : int = min(points.size(), last_known_s_idx + 100)
-
-	for i in range(search_start, search_end):
-		var dist_sq := pos.distance_squared_to(points[i])
-		if dist_sq < min_dist_sq:
-			min_dist_sq = dist_sq
-			best_idx = i
-
-	last_known_s_idx = best_idx
-	
-	if best_idx < points.size() - 1:
-		var p1 :=  points[best_idx]
-		var p2 := points[best_idx + 1]
-		var segment := p2 - p1
-		var seg_len_sq := segment.length_squared()
-		
-		if seg_len_sq > 0.0001:
-			var t:= (pos- p1).dot(segment) / seg_len_sq
-			t = clampf(t, 0.0, 1.0)
-			return (float(best_idx) + t) * step_size
-			
-	
-	return best_idx * step_size
-	
 # Gibt Spawndaten deterministisch und quer über die ganze Fahrbahn verteilt zurück
 # In TrackMath.gd:
 
@@ -271,30 +246,40 @@ static func get_track_progress_s_optimized(car_position: Vector3, last_index: in
 	if points.is_empty():
 		return {"s": 0.0, "index": 0}
 		
-	var search_radius := 15 # Prüft nur 15 Punkte vor und hinter der letzten Position
+	var search_radius := 15
 	var start_i: int = max(0, last_index - search_radius)
 	var end_i: int = min(points.size() - 1, last_index + search_radius)
 	
 	var best_idx := last_index
 	var min_dist_sq := INF
 	
-	# Sucht den am nächsten gelegenen Punkt im lokalen Fenster
 	for i in range(start_i, end_i + 1):
 		var dist_sq := car_position.distance_squared_to(points[i])
 		if dist_sq < min_dist_sq:
 			min_dist_sq = dist_sq
 			best_idx = i
 			
-	# Falls der Spieler sich schneller als das Suchfenster bewegt hat (z. B. Respawn/Teleport), 
-	# machen wir als Fallback eine globale Suche:
-	if best_idx == start_i and start_i > 0 or best_idx == end_i and end_i < points.size() - 1:
+	if (best_idx == start_i and start_i > 0) or (best_idx == end_i and end_i < points.size() - 1):
 		for i in range(points.size()):
 			var dist_sq := car_position.distance_squared_to(points[i])
 			if dist_sq < min_dist_sq:
 				min_dist_sq = dist_sq
 				best_idx = i
 
-	var progress_s := best_idx * step_size
+	# DEFAULT FLOAT FALLBACK
+	var progress_s : float = float(best_idx) * step_size
+
+	if best_idx < points.size() - 1:
+		var p1 := points[best_idx]
+		var p2 := points[best_idx + 1]
+		var segment := p2 - p1
+		var seg_len_sq := segment.length_squared()
+		
+		if seg_len_sq > 0.0001:
+			# CAST TO FLOAT EXPLICITLY TO PREVENT INT-DIVISION TRUNCATION
+			var t : float = clampf((car_position - p1).dot(segment) / seg_len_sq, 0.0, 1.0)
+			progress_s = (float(best_idx) + t) * float(step_size)
+
 	return {
 		"s": progress_s,
 		"index": best_idx
