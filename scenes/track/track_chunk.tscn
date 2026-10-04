@@ -25,6 +25,10 @@ road_texture = ExtResource("2_joh5a")
 fence_scene_a = ExtResource("3_3yspm")
 fence_scene_b = ExtResource("4_tinqj")
 fence_spacing = 2.0
+fence_offset_left = 0.0
+fence_offset_right = 0.1
+tree_scenes = Array[PackedScene]([ExtResource("5_06kto"), ExtResource("13_u2be5")])
+trees_per_step = 6
 obstacle_scenes = Array[PackedScene]([ExtResource("5_06kto"), ExtResource("8_3ujw3"), ExtResource("4_hvr2s"), ExtResource("7_06kto"), ExtResource("3_joh5a"), ExtResource("9_u0o3u"), ExtResource("6_hvr2s"), ExtResource("10_b8ivy"), ExtResource("11_pifpi"), ExtResource("12_egvxw"), ExtResource("13_u2be5"), ExtResource("9_u0o3u"), ExtResource("5_06kto"), ExtResource("13_u2be5")])
 patch_scenes = Array[PackedScene]([ExtResource("9_544tm"), ExtResource("10_556pl"), ExtResource("16_u2be5")])
 
