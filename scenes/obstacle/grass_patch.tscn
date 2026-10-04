@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://ddinchd45rroe"]
 
 [ext_resource type="Script" uid="uid://xhnkyc8p0cin" path="res://scenes/obstacle/patch.gd" id="1_5e71b"]
-[ext_resource type="PackedScene" uid="uid://deqao05wuulp4" path="res://assets/obstacle/FBX/patch-grass.fbx" id="1_mvifc"]
+[ext_resource type="PackedScene" uid="uid://craka22g2m4o5" path="res://assets/obstacle/FBX-forest/patch-grass.fbx" id="1_mvifc"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_8ri8m"]
 size = Vector3(0.88319397, 0.15344238, 0.8859558)
@@ -9,7 +9,7 @@ size = Vector3(0.88319397, 0.15344238, 0.8859558)
 [node name="GrassPatch" type="Area3D" unique_id=1886335771]
 script = ExtResource("1_5e71b")
 
-[node name="patch-grass" parent="." unique_id=154619513 instance=ExtResource("1_mvifc")]
+[node name="patch-grass2" parent="." unique_id=1604982856 instance=ExtResource("1_mvifc")]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=898003675]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.01108551, 0.07672119, 0.011764526)

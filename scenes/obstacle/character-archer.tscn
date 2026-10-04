@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://c41qrik1upfj0"]
 
-[ext_resource type="PackedScene" uid="uid://b5lkei6o0omgo" path="res://assets/obstacle/FBX/character-archer.fbx" id="1_g0304"]
+[ext_resource type="PackedScene" uid="uid://chpk0gwrey258" path="res://assets/obstacle/FBX-forest/character-archer.fbx" id="1_g0304"]
 [ext_resource type="Script" uid="uid://dawbdelns5vi6" path="res://scenes/obstacle/obstacle.gd" id="1_gaqt4"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_6v33g"]
@@ -19,7 +19,7 @@ size = Vector3(0.7897644, 0.5973816, 0.33685303)
 script = ExtResource("1_gaqt4")
 max_scale = 5.0
 
-[node name="character-archer" parent="." unique_id=1425049990 instance=ExtResource("1_g0304")]
+[node name="character-archer2" parent="." unique_id=1926406595 instance=ExtResource("1_g0304")]
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="." unique_id=2121591627]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00061035156, 0.4896698, 0.0024414063)
