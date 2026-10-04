@@ -3,11 +3,12 @@ extends Node3D
 @export var ghost_material: StandardMaterial3D
 
 @export_group("Ghost Sabotage")
-@export var min_pulse_interval: float = 6.0   # Minimaler Abstand zwischen Pulsen
-@export var max_pulse_interval: float = 12.0  # Maximaler Abstand zwischen Pulsen
-@export var pulse_radius: float = 15.0        # Reichweite der Schockwelle
-@export var min_sabotage_duration: float = 1.0# Minimale Dauer der Invertierung
-@export var max_sabotage_duration: float = 3.0# Maximale Dauer der Invertierung
+@export var first_pulse_delay: float = 1.5
+@export var min_pulse_interval: float = 6.0   
+@export var max_pulse_interval: float = 12.0  
+@export var pulse_radius: float = 15.0        
+@export var min_sabotage_duration: float = 1.0
+@export var max_sabotage_duration: float = 3.0
 
 var ghost_data: Array[Transform3D] = []
 var current_frame: int = 0
@@ -38,7 +39,7 @@ func start_replay(data: Array[Transform3D], car_scene: PackedScene) -> void:
 	
 	# Timer resetten und direkt den ERSTEN Zufallswert für den Puls auswürfeln
 	pulse_timer = 0.0
-	current_pulse_target = randf_range(min_pulse_interval, max_pulse_interval)
+	current_pulse_target = first_pulse_delay
 	
 	if car_scene == null:
 		print("6. FEHLER: car_scene ist NULL!")
