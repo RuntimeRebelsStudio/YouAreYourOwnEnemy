@@ -2,7 +2,7 @@ extends Node
 
 var ambient: AudioStreamPlayer
 var menu_music: AudioStreamPlayer
-const MENU_MUSIC_VOLUME_DB := -12.0
+const MENU_MUSIC_VOLUME_DB := -20.0
 const MENU_MUSIC_DUCKED_DB := -24.0
 
 func _ready():
