@@ -8,6 +8,7 @@ extends Node3D
 @onready var left_button: Button = $UI/Control/BottomPanel/VBoxContainer/HBoxContainer/LeftButton
 @onready var right_button: Button = $UI/Control/BottomPanel/VBoxContainer/HBoxContainer/RightButton
 @onready var start_button: Button = $UI/Control/BottomPanel/VBoxContainer/PlayButton
+@onready var explanation_button: Button = $UI/Control/TopPanel/GameExplanation
 
 var current_index: int = 0
 var current_car_instance: Node3D = null
@@ -22,6 +23,7 @@ func _ready() -> void:
 	left_button.pressed.connect(_on_left_pressed)
 	right_button.pressed.connect(_on_right_pressed)
 	start_button.pressed.connect(_on_start_pressed)
+	explanation_button.pressed.connect(_on_explanation_pressed)
 	
 	_load_car(current_index)
 
@@ -48,6 +50,9 @@ func _load_car(index: int) -> void:
 	
 	# Name anzeigen
 	car_name_label.text = current_car_instance.name
+	
+func _on_explanation_pressed() -> void:
+	get_tree().change_scene_to_file("res://GUI/HowToPlay.tscn")
 
 func _on_left_pressed() -> void:
 	current_index = (current_index - 1 + GameManager.available_cars.size()) % GameManager.available_cars.size()
