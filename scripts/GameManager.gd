@@ -1,6 +1,21 @@
 extends Node
 
+var ambient: AudioStreamPlayer
+var menu_music: AudioStreamPlayer
+const MENU_MUSIC_VOLUME_DB := -12.0
+const MENU_MUSIC_DUCKED_DB := -24.0
 
+func _ready():
+	ambient = AudioStreamPlayer.new()
+	ambient.stream = preload("res://assets/audio/ambient_car.mp3")
+	ambient.volume_db = 5
+	if ambient.stream is AudioStreamMP3:
+		ambient.stream.loop = true
+	add_child(ambient)
+	menu_music = AudioStreamPlayer.new()
+	menu_music.volume_db = MENU_MUSIC_VOLUME_DB
+	add_child(menu_music)
+	
 @export var available_cars: Array[PackedScene] = []
 var selected_car_index: int = 0
 
@@ -28,6 +43,42 @@ func start_new_run() -> void:
 		current_state = GameState.PLAYING
 	else: 
 		current_state = GameState.GAME_SUMMARY
+	if current_state == GameState.PLAYING and not ambient.playing:
+			ambient.play()
+	if current_state == GameState.PLAYING:
+		duck_menu_music()
+
+func play_menu_music(stream: AudioStream) -> void:
+	if stream == null:
+		return
+	if stream is AudioStreamMP3:
+		(stream as AudioStreamMP3).loop = true
+	elif stream is AudioStreamOggVorbis:
+		(stream as AudioStreamOggVorbis).loop = true
+	elif stream is AudioStreamWAV:
+		(stream as AudioStreamWAV).loop_mode = AudioStreamWAV.LOOP_FORWARD
+	if menu_music.stream != stream:
+		menu_music.stream = stream
+		menu_music.volume_db = MENU_MUSIC_VOLUME_DB
+		menu_music.play()
+	elif not menu_music.playing:
+		menu_music.volume_db = MENU_MUSIC_VOLUME_DB
+		menu_music.play()
+	else:
+		restore_menu_music()
+
+func duck_menu_music() -> void:
+	if menu_music.playing:
+		var tw := create_tween()
+		tw.tween_property(menu_music, "volume_db", MENU_MUSIC_DUCKED_DB, 0.5)
+
+func restore_menu_music() -> void:
+	if menu_music.playing:
+		var tw := create_tween()
+		tw.tween_property(menu_music, "volume_db", MENU_MUSIC_VOLUME_DB, 0.5)
+
+func stop_menu_music() -> void:
+	menu_music.stop()
 
 func get_selected_car_scene() -> PackedScene:
 	if available_cars.size() > 0:
@@ -79,4 +130,4 @@ func reset_game() -> void:
 	current_state = GameState.READY
 	
 	generate_new_seed()
-	
+	ambient.stop()

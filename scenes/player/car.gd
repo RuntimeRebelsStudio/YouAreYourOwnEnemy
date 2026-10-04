@@ -3,6 +3,7 @@ extends VehicleBody3D
 
 
 @export var explosion_scene: PackedScene
+@export var crash_sound: AudioStream
 
 @export var car_model_scene: PackedScene
 var current_car_model: CarModel
@@ -242,7 +243,15 @@ func die() -> void:
 		
 		# Place at car's global position
 		explosion.global_position = global_position
-	
+
+	if crash_sound:
+		var p := AudioStreamPlayer3D.new()
+		get_tree().current_scene.add_child(p)
+		p.global_position = global_position
+		p.stream = crash_sound
+		p.play()
+		p.finished.connect(p.queue_free)
+
 	await get_tree().create_timer(1.5).timeout
 		
 	GameManager.trigger_player_death(max_distance_score, current_run_data,
