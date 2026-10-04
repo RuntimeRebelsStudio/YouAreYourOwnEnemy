@@ -177,15 +177,18 @@ func spawn_obstacle_at(s: float, offset_ratio: float, scene_to_spawn: PackedScen
 	if "max_scale" in obs:
 		max_s = obs.max_scale
 
-	# X und Z unabhängig voneinander berechnen
-	var final_scale_x : float = lerp(min_s, max_s, scale_ratio_x)
-	var final_scale_z : float = lerp(min_s, max_s, scale_ratio_z)
-
-	# 4. HÖHE (Y) ANPASSEN
-	var final_scale_y := 1.0
-	if not (obs is GrassPatch):
-		# Für 3D-Hindernisse (Steine/Kisten): Höhe als Mittelwert nehmen,
-		# damit Objekte nicht extrem verzerrt/platt wirken
-		final_scale_y = (final_scale_x + final_scale_z) / 2.0
-
-	obs.scale = Vector3(final_scale_x, final_scale_y, final_scale_z)
+	# 4. SKALIERUNG ZUWEISEN (Unterscheidung Patch vs Obstacle)
+	if obs is GrassPatch:
+		# Patches (Gras, Öl) dürfen in Länge und Breite unabhängig verzerrt werden
+		var final_scale_x : float = lerp(min_s, max_s, scale_ratio_x)
+		var final_scale_z : float = lerp(min_s, max_s, scale_ratio_z)
+		
+		# Y bleibt 1.0, damit sie flach auf dem Boden liegen
+		obs.scale = Vector3(final_scale_x, 1.0, final_scale_z)
+	else:
+		# Obstacles (Bäume, Steine) werden in alle 3 Richtungen exakt gleichmäßig skaliert.
+		# Wir bilden den Mittelwert aus X- und Z-Ratio für eine einzige, organische Größe.
+		var uniform_ratio : float = (scale_ratio_x + scale_ratio_z) / 2.0
+		var uniform_scale : float = lerp(min_s, max_s, uniform_ratio)
+		
+		obs.scale = Vector3(uniform_scale, uniform_scale, uniform_scale)
