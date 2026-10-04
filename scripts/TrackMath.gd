@@ -102,6 +102,28 @@ static func ensure_calculated_up_to(target_index: int) -> void:
 		var total_curve_rate := macro + micro + sharp
 		accumulated_angle += total_curve_rate * step_size
 
+		# =========================================================
+		# NEU: ANTI-LOOP-SYSTEM (Gummiband-Effekt / Forward Bias)
+		# =========================================================
+		# Wie weit darf die Strecke maximal abknicken? (z.B. 140 Grad)
+		var max_angle := deg_to_rad(140.0) 
+		
+		# Berechne, wie nah wir am absoluten Limit sind (0.0 = geradeaus, 1.0 = am Limit)
+		var deviation := accumulated_angle / max_angle
+		
+		# Exponentielle Rückstellkraft: Kleine Kurven bleiben unbeeinflusst, 
+		# aber je schärfer die Kurve wird, desto brutaler drückt das System dagegen.
+		# hoch 3 (pow 3) sorgt für eine sanfte Kurve, die am Ende zur Wand wird.
+		var pull_back_force : float = pow(abs(deviation), 3.0) * sign(accumulated_angle)
+		
+		# Den Winkel aktiv zurückziehen
+		accumulated_angle -= pull_back_force * 0.08 * step_size
+		
+		# Harte Begrenzung (Clamp) als absolutes Sicherheitsnetz, 
+		# damit extreme Noise-Werte das System niemals überwinden können.
+		accumulated_angle = clamp(accumulated_angle, -max_angle, max_angle)
+		# =========================================================
+
 		# Richtungsvektor aus dem akkumulierten Winkel
 		var dir := Vector3(sin(accumulated_angle), 0.0, -cos(accumulated_angle)).normalized()
 
