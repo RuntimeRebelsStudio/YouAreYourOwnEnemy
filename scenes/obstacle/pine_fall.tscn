@@ -17,6 +17,7 @@ size = Vector3(1, 1.8497314, 1.1809082)
 
 [node name="PineFall" type="StaticBody3D" unique_id=1814486384]
 script = ExtResource("1_u8r7e")
+min_scale = 2.5
 max_scale = 7.0
 
 [node name="pine-fall" parent="." unique_id=1186503612 instance=ExtResource("1_1hmha")]

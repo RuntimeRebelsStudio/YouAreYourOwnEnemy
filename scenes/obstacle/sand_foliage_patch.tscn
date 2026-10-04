@@ -8,6 +8,7 @@ size = Vector3(7.735626, 0.7538147, 6.021576)
 
 [node name="Area3D" type="Area3D" unique_id=1075371587]
 script = ExtResource("1_6vbn7")
+slow_factor = 0.25
 min_scale = 0.5
 max_scale = 2.0
 

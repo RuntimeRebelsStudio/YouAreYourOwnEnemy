@@ -11,6 +11,7 @@ size = Vector3(1.0170898, 0.522522, 1.0155029)
 
 [node name="RocksLow" type="StaticBody3D" unique_id=257884894]
 script = ExtResource("2_v6wdc")
+min_scale = 2.0
 max_scale = 5.0
 
 [node name="rocks-low" parent="." unique_id=305773558 instance=ExtResource("1_uvkgx")]

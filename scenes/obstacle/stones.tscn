@@ -11,6 +11,7 @@ size = Vector3(0.9022827, 0.46264648, 0.8494873)
 
 [node name="Stones" type="StaticBody3D" unique_id=531490265]
 script = ExtResource("1_x57wq")
+min_scale = 1.5
 
 [node name="stones" parent="." unique_id=405993982 instance=ExtResource("1_g7tp3")]
 
