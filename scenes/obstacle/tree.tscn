@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://cdbh3i6uulvxm"]
+
+[ext_resource type="Script" uid="uid://dawbdelns5vi6" path="res://scenes/obstacle/obstacle.gd" id="1_3i47e"]
+[ext_resource type="PackedScene" uid="uid://bqx8nktjjtoxj" path="res://assets/obstacle/FBX-forest/tree.fbx" id="1_o6cn5"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8nufa"]
+size = Vector3(0.33161926, 0.29673767, 0.3789673)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7vq2e"]
+size = Vector3(0.91967773, 1.3765869, 0.8725281)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6v33g"]
+size = Vector3(0.9296875, 1.3896484, 0.88305664)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8ri8m"]
+size = Vector3(0.33776855, 0.30316162, 0.38378906)
+
+[node name="Tree" type="StaticBody3D" unique_id=576092604]
+script = ExtResource("1_3i47e")
+max_scale = 10.0
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="." unique_id=1363724005]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0005569458, 0.15016937, -0.0018615723)
+shape = SubResource("BoxShape3D_8nufa")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1117448503]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00061035156, 0.989563, 0.0031280518)
+shape = SubResource("BoxShape3D_7vq2e")
+
+[node name="HitBox" type="Area3D" parent="." unique_id=428644696]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitBox" unique_id=1784092905]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0009765625, 0.99243164, 0.0015869141)
+shape = SubResource("BoxShape3D_6v33g")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="HitBox" unique_id=880134434]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0005493164, 0.15029907, -0.0014648438)
+shape = SubResource("BoxShape3D_8ri8m")
+
+[node name="tree" parent="." unique_id=579856087 instance=ExtResource("1_o6cn5")]

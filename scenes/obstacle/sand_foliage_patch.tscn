@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://hst4bjqfi5bk"]
+
+[ext_resource type="Script" uid="uid://xhnkyc8p0cin" path="res://scenes/obstacle/patch.gd" id="1_6vbn7"]
+[ext_resource type="PackedScene" uid="uid://nregmfxm5dcb" path="res://assets/obstacle/FBX-pirate/patch-sand-foliage.fbx" id="2_6vbn7"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8ri8m"]
+size = Vector3(7.735626, 0.31451416, 6.021576)
+
+[node name="Area3D" type="Area3D" unique_id=1075371587]
+script = ExtResource("1_6vbn7")
+min_scale = 0.5
+max_scale = 2.0
+
+[node name="patch-sand-foliage" parent="." unique_id=356321220 instance=ExtResource("2_6vbn7")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=639479436]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0025177002, 0.16201782, -0.0019683838)
+shape = SubResource("BoxShape3D_8ri8m")

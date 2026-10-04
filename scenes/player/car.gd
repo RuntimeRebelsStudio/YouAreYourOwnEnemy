@@ -128,16 +128,38 @@ func _physics_process(delta: float) -> void:
 
 	var rpmBL = abs($Back_Left.get_rpm())
 	var rpmBR = abs($Back_Right.get_rpm())
-	$Back_Left.engine_force = accel * effective_torque * (1.0 - rpmBL / effective_max_rpm)
-	$Back_Right.engine_force = accel * effective_torque * (1.0 - rpmBR / effective_max_rpm)
-
-	if Input.is_action_pressed("brake"):
-		brake = 10000.0   # Vorher 5.0 - Muss bei 1200kg massiv höher sein!
-		engine_force = 0.0
-	elif current_slow_factor < 1.0:
-		# Leichter Widerstand/Reibung im Gras/Matsch
-		brake = 2000.0    # Vorher 2.0
+	
+	# max(0.0, ...) verhindert, dass der Motor rückwärts zieht, wenn die RPM plötzlich sinkt
+	var force_multiplier_BL = max(0.0, 1.0 - rpmBL / effective_max_rpm)
+	var force_multiplier_BR = max(0.0, 1.0 - rpmBR / effective_max_rpm)
+	
+	$Back_Left.engine_force = accel * effective_torque * force_multiplier_BL
+	$Back_Right.engine_force = accel * effective_torque * force_multiplier_BR
+	
+	# --- NEU: Intelligenter Gras-Widerstand ---
+	if current_slow_factor < 1.0:
+		# Prüfen, ob wir noch schneller sind als die erlaubte Gras-Geschwindigkeit
+		if rpmBL > effective_max_rpm or rpmBR > effective_max_rpm:
+			linear_damp = 1.5 # Stark abbremsen (simuliert tiefen Matsch)
+		else:
+			linear_damp = 0.0 # Zielgeschwindigkeit erreicht -> Widerstand lösen, damit das Auto weiterrollen kann
 	else:
+		linear_damp = 0.0
+	
+	# --- BREMS-LOGIK ---
+	if Input.is_action_pressed("brake"):
+		# Wenn wir im Patch sind (Faktor < 1.0), ist die Bremse schwächer ("rutschen")
+		if current_slow_factor < 1.0:
+			# Multipliziert die Bremse mit dem Faktor (z.B. 10000 * 0.4 = 4000)
+			brake = 10000.0 * current_slow_factor 
+		else:
+			# Volle Bremskraft auf der Straße
+			brake = 10000.0 
+			
+		$Back_Left.engine_force = 0.0
+		$Back_Right.engine_force = 0.0
+	else:
+		# Wenn nicht gebremst wird, löst sich die Bremse komplett
 		brake = 0.0
 		
 	# Timer mit delta hochzählen und nur alle 1,0 Sekunden ausgeben
