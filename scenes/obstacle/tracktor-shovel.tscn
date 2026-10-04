@@ -11,7 +11,8 @@ size = Vector3(1.6724243, 1.5224609, 2.4802246)
 
 [node name="TracktorShovel" type="StaticBody3D" unique_id=864367755]
 script = ExtResource("1_l31vn")
-max_scale = 4.0
+min_scale = 0.5
+max_scale = 2.5
 
 [node name="tractor-shovel" parent="." unique_id=1213568491 instance=ExtResource("2_xxa2m")]
 

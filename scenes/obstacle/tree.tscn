@@ -17,7 +17,7 @@ size = Vector3(0.33776855, 0.30316162, 0.38378906)
 
 [node name="Tree" type="StaticBody3D" unique_id=576092604]
 script = ExtResource("1_3i47e")
-max_scale = 10.0
+max_scale = 7.0
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="." unique_id=1363724005]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0005569458, 0.15016937, -0.0018615723)

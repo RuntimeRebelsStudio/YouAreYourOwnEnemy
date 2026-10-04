@@ -8,6 +8,7 @@ size = Vector3(0.88319397, 0.2930298, 0.8859558)
 
 [node name="GrassPatch" type="Area3D" unique_id=1886335771]
 script = ExtResource("1_5e71b")
+slow_factor = 0.55
 
 [node name="patch-grass2" parent="." unique_id=1604982856 instance=ExtResource("1_mvifc")]
 

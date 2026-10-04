@@ -11,7 +11,7 @@ size = Vector3(0.47766113, 0.6027832, 0.47302246)
 
 [node name="Cone" type="StaticBody3D" unique_id=624668857]
 script = ExtResource("1_dlyd5")
-max_scale = 4.0
+max_scale = 2.5
 
 [node name="cone" parent="." unique_id=1150060469 instance=ExtResource("2_dlyd5")]
 
