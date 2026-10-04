@@ -1,8 +1,8 @@
 [gd_scene format=4 uid="uid://c75204f1gn5f4"]
 
 [ext_resource type="Script" uid="uid://bdm4cy4u3orcu" path="res://scenes/player/car_model.gd" id="1_xkqq3"]
-[ext_resource type="Texture2D" uid="uid://dtwmnag70tts4" path="res://scenes/player/CarModels/textures/Windows.png" id="2_ywy15"]
-[ext_resource type="Texture2D" uid="uid://dcmst03lnrlsu" path="res://scenes/player/CarModels/textures/City Atlas Map.png" id="3_wowjk"]
+[ext_resource type="Texture2D" uid="uid://dtwmnag70tts4" path="res://scenes/player/CarModels/Textures/Windows.png" id="2_ywy15"]
+[ext_resource type="Texture2D" uid="uid://dcmst03lnrlsu" path="res://scenes/player/CarModels/Textures/City Atlas Map.png" id="3_wowjk"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j8mhk"]
 resource_name = "Windows"
@@ -410,7 +410,10 @@ wheel_fl = NodePath("BWhel_FL")
 wheel_fr = NodePath("BWhel_FR")
 wheel_bl = NodePath("BWhel_BL")
 wheel_br = NodePath("BWhel_BR")
-vehicle_mass = 900.0
+vehicle_mass = 1500.0
+max_torque = 4000.0
+absolute_max_rpm = 950.0
+rpm_acceleration = 60.0
 metadata/_custom_type_script = "uid://bdm4cy4u3orcu"
 
 [node name="PickUp_17" type="MeshInstance3D" parent="." unique_id=2046116752]

@@ -19,6 +19,13 @@ class_name CarModel extends Area3D
 #Individuelles Gewicht für jedes Auto (Standardwert z.B. 1200 kg)
 @export var vehicle_mass: float = 1200.0
 
+# Performance Stats für jedes Auto ---
+@export_group("Performance")
+@export var max_torque: float = 3500.0       # Beschleunigungskraft (Motorstärke)
+@export var min_max_rpm: float = 300.0       # Start-Höchstgeschwindigkeit
+@export var absolute_max_rpm: float = 1000.0 # Absolute Top-Geschwindigkeit
+@export var rpm_acceleration: float = 50.0   # Wie schnell die Höchstgeschwindigkeit steigt
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

@@ -12,14 +12,13 @@ var current_car_model: CarModel
 @export var engine_power: float = 200.0
 @export var max_steer_angle: float = 0.5
 @export var steer_speed: float = 3.0
-@export var max_torque: float  = 3500.0 # vorher 350.0
 
-@export_group("Speed Growth")
-@export var min_max_rpm: float = 300.0       # Start-Höchstgeschwindigkeit (RPM)
-@export var absolute_max_rpm: float = 1000.0 # Limit / maximale Endgeschwindigkeit
-@export var rpm_acceleration: float = 50.0   # Wie viel RPM pro Sekunde dazukommen
+var max_torque: float
+var min_max_rpm: float
+var absolute_max_rpm: float
+var rpm_acceleration: float
 
-@onready var current_max_rpm: float = min_max_rpm
+var current_max_rpm: float
 
 var y_wheel_offset = 0.08
 var speed_print_timer: float = 0.0
@@ -68,11 +67,19 @@ func _ready() -> void:
 	if current_car_model.get_parent() == null:
 		add_child(current_car_model)
 	
-	# --- NEU: Schwerpunkt vom CarModel auf den VehicleBody3D übertragen ---
+	# Schwerpunkt und Gewicht übernehmen
 	center_of_mass_mode = RigidBody3D.CENTER_OF_MASS_MODE_CUSTOM
 	center_of_mass = current_car_model.custom_center_of_mass
-	
 	mass = current_car_model.vehicle_mass
+	
+	# Performance-Werte übernehmen ---
+	max_torque = current_car_model.max_torque
+	min_max_rpm = current_car_model.min_max_rpm
+	absolute_max_rpm = current_car_model.absolute_max_rpm
+	rpm_acceleration = current_car_model.rpm_acceleration
+	
+	# WICHTIG: Die aktuelle Drehzahl auf den individuellen Startwert des Autos setzen
+	current_max_rpm = min_max_rpm
 	
 	visual_wheels = {
 		"fl": current_car_model.wheel_fl,
@@ -240,10 +247,3 @@ func die() -> void:
 		
 	GameManager.trigger_player_death(max_distance_score, current_run_data,
 	 car_model_scene)
-		
-	
-	
-	
-	
-	
-	

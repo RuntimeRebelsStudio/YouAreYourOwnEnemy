@@ -1,8 +1,8 @@
 [gd_scene format=4 uid="uid://camv3h60qcgl3"]
 
 [ext_resource type="Script" uid="uid://bdm4cy4u3orcu" path="res://scenes/player/car_model.gd" id="1_a1aa1"]
-[ext_resource type="Texture2D" uid="uid://dcmst03lnrlsu" path="res://scenes/player/CarModels/textures/City Atlas Map.png" id="2_4uwnn"]
-[ext_resource type="Texture2D" uid="uid://dtwmnag70tts4" path="res://scenes/player/CarModels/textures/Windows.png" id="3_1ji17"]
+[ext_resource type="Texture2D" uid="uid://dcmst03lnrlsu" path="res://scenes/player/CarModels/Textures/City Atlas Map.png" id="2_4uwnn"]
+[ext_resource type="Texture2D" uid="uid://dtwmnag70tts4" path="res://scenes/player/CarModels/Textures/Windows.png" id="3_1ji17"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8rn7p"]
 resource_name = "City Car"
@@ -378,7 +378,11 @@ wheel_fl = NodePath("W_fL")
 wheel_fr = NodePath("W_fR")
 wheel_bl = NodePath("W_bL")
 wheel_br = NodePath("W_bR")
-vehicle_mass = 850.0
+vehicle_mass = 900.0
+max_torque = 2800.0
+min_max_rpm = 400.0
+absolute_max_rpm = 1250.0
+rpm_acceleration = 100.0
 metadata/_custom_type_script = "uid://bdm4cy4u3orcu"
 
 [node name="PoliceCar2" type="MeshInstance3D" parent="." unique_id=2028115988]
