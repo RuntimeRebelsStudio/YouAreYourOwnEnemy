@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://c3slj2o1y8588" path="res://scenes/main/main.gd" id="1_yyfjg"]
 [ext_resource type="PackedScene" uid="uid://g2yw6uhuqfjt" path="res://scenes/player/GhostCar/GhostCar.tscn" id="2_b1x3f"]
 [ext_resource type="Script" uid="uid://cdheyx0jbav66" path="res://scenes/main/camera_3d.gd" id="2_hujxm"]
+[ext_resource type="PackedScene" uid="uid://cfd1h4ugnn72f" path="res://GUI/GameSummary.tscn" id="3_a8run"]
 [ext_resource type="PackedScene" uid="uid://682oje5enrdc" path="res://scenes/player/car.tscn" id="3_b1x3f"]
 [ext_resource type="PackedScene" uid="uid://blw8iuakp2j6v" path="res://scenes/track/TrackManager.tscn" id="5_ouso4"]
 [ext_resource type="PackedScene" uid="uid://dd88xbfk4idf2" path="res://scenes/player/Cars/taxi.tscn" id="5_yyfjg"]
@@ -26,6 +27,7 @@ glow_intensity = 0.8
 [node name="Main" type="Node3D" unique_id=1143003491]
 script = ExtResource("1_yyfjg")
 ghost_car_scene = ExtResource("2_b1x3f")
+game_summary_ui_scene = ExtResource("3_a8run")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=2146776854]
 environment = SubResource("Environment_b1x3f")

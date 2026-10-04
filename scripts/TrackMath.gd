@@ -299,3 +299,8 @@ static func get_track_progress_s_optimized(car_position: Vector3, last_index: in
 		"s": progress_s,
 		"index": best_idx
 	}
+	
+	
+static func reset(game_seed: int) -> void:
+		last_known_s_idx = 0
+		init_seed(game_seed)

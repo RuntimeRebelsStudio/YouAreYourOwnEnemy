@@ -1,6 +1,8 @@
 extends Node3D
 
 @export var ghost_car_scene: PackedScene
+@export var game_summary_ui_scene: PackedScene
+
 @onready var spawn_point: Node3D = $SpawnPoint
 @onready var car_base_scene: PackedScene
 
@@ -13,22 +15,29 @@ func _ready() -> void:
 	
 	GameManager.start_new_run()
 
+
+	
+	if GameManager.current_state == GameManager.GameState.GAME_SUMMARY:
+		show_game_summary()
+		return
+	
 	if car_base_scene:
 		var player = car_base_scene.instantiate() as Node3D
 		add_child(player)
 		if spawn_point:
 			player.global_transform = spawn_point.global_transform
-
-	
-	if GameManager.current_state == GameManager.GameState.GAME_SUMMARY:
-		print("TODO: Show Game Summary")
-		# TODO Show Game Summary UI
-		return
 	
 	if GameManager.has_ghost_data():
 		var ghost = ghost_car_scene.instantiate()
 		add_child(ghost)
 		ghost.start_replay(GameManager.last_ghost_data, GameManager.last_car_scene)
+
+func show_game_summary() -> void:
+	if game_summary_ui_scene:
+		var summary_ui = game_summary_ui_scene.instantiate()
+		add_child(summary_ui)
+	else:
+		push_error("MainScene: game_summary_ui_scene is not assigned in the Inspector!")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

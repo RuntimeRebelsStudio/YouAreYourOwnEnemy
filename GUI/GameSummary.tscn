@@ -1,0 +1,64 @@
+[gd_scene format=3 uid="uid://cfd1h4ugnn72f"]
+
+[ext_resource type="Script" uid="uid://c7d226fidn0sh" path="res://GUI/game_summary.gd" id="1_ixq12"]
+[ext_resource type="Shader" uid="uid://d1exi844h8oyv" path="res://GUI/GameSummary.gdshader" id="2_8w37e"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2yjle"]
+shader = ExtResource("2_8w37e")
+shader_parameter/blur_amount = 2.5
+shader_parameter/color_tint = Color(0, 0, 0, 0.5)
+
+[node name="GameSummary" type="Control" unique_id=91750073]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ixq12")
+
+[node name="BlurBackground" type="ColorRect" parent="." unique_id=882631776]
+material = SubResource("ShaderMaterial_2yjle")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="PanelContainer" parent="." unique_id=6249763]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel" unique_id=919958660]
+layout_mode = 2
+
+[node name="PlayAgainButton" type="Button" parent="Panel/VBoxContainer" unique_id=420820593]
+layout_mode = 2
+text = "Play Again"
+
+[node name="CarSelectButton" type="Button" parent="Panel/VBoxContainer" unique_id=1359641135]
+layout_mode = 2
+text = "Change Car"
+
+[node name="TitleLabel" type="Label" parent="Panel/VBoxContainer" unique_id=601985074]
+layout_mode = 2
+text = "Game Summary"
+
+[node name="ScoreLabel" type="Label" parent="Panel/VBoxContainer" unique_id=966114473]
+layout_mode = 2
+text = "Best Score:  0"
+
+[node name="RoundLabel" type="Label" parent="Panel/VBoxContainer" unique_id=18246071]
+layout_mode = 2
+text = "Rounds Completed 0/0"
