@@ -1,6 +1,7 @@
 extends Node3D
 
 @export var available_cars: Array[PackedScene] = [] # Hier deine Car1.tscn, Car2.tscn etc. zuweisen
+@export var background_music: AudioStream = preload("res://assets/audio/peaceful-running-loop-music-track-246473.mp3")
 
 @onready var pivot: Node3D = $Pivot
 @onready var car_name_label: Label = $UI/Control/TopPanel/CarNameLabel
@@ -13,6 +14,7 @@ var current_car_instance: Node3D = null
 var rotate_speed: float = 0.5 # Kontinuierliche Drehung der Plattform
 
 func _ready() -> void:
+	GameManager.play_menu_music(background_music)
 	# Falls Autos im GameManager hinterlegt sind, übernehmen
 	if GameManager.available_cars.size() == 0 and available_cars.size() > 0:
 		GameManager.available_cars = available_cars
@@ -58,6 +60,7 @@ func _on_right_pressed() -> void:
 func _on_start_pressed() -> void:
 	GameManager.selected_car_index = current_index
 	GameManager.reset_game() # Setzt Runden & Zustand auf Start zurück
+	GameManager.duck_menu_music()
 	
 	# Wechselt zur eigentlichen Rennstrecke
 	get_tree().change_scene_to_file("res://scenes/main/main.tscn")
