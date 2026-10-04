@@ -235,21 +235,6 @@ func _physics_process(delta: float) -> void:
 	else:
 		linear_damp = 0.0
 	
-	# --- BREMS-LOGIK ---
-	if Input.is_action_pressed("brake"):
-		# Wenn wir im Patch sind (Faktor < 1.0), ist die Bremse schwächer ("rutschen")
-		if current_slow_factor < 1.0:
-			# Multipliziert die Bremse mit dem Faktor (z.B. 10000 * 0.4 = 4000)
-			brake = 10000.0 * current_slow_factor 
-		else:
-			# Volle Bremskraft auf der Straße
-			brake = 10000.0 
-			
-		$Back_Left.engine_force = 0.0
-		$Back_Right.engine_force = 0.0
-	else:
-		# Wenn nicht gebremst wird, löst sich die Bremse komplett
-		brake = 0.0
 		
 	# Timer mit delta hochzählen und nur alle 1,0 Sekunden ausgeben
 	speed_print_timer += delta
