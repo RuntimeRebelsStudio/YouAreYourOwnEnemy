@@ -66,7 +66,8 @@ func _apply_ghost_overlay(node: Node) -> void:
 			node.material_overlay = ghost_material
 		else:
 			print("WARNUNG: ghost_material ist NULL!")
-		
+	elif node is SpotLight3D and ghost_material:
+		node.light_color = ghost_material.emission
 	for child in node.get_children():
 		_apply_ghost_overlay(child)
 

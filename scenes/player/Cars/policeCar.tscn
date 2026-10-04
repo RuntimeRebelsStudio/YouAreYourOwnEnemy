@@ -370,7 +370,7 @@ size = Vector3(1.0287476, 0.46936035, 0.32788086)
 [sub_resource type="BoxShape3D" id="BoxShape3D_4uwnn"]
 size = Vector3(1.0371094, 0.54711914, 0.2043457)
 
-[node name="policeCar" type="Area3D" unique_id=878121250 node_paths=PackedStringArray("body_mesh", "collision_shapes", "wheel_fl", "wheel_fr", "wheel_bl", "wheel_br")]
+[node name="policeCar" type="Area3D" unique_id=878121250 node_paths=PackedStringArray("body_mesh", "collision_shapes", "wheel_fl", "wheel_fr", "wheel_bl", "wheel_br", "beacon_a", "beacon_b")]
 script = ExtResource("1_a1aa1")
 body_mesh = NodePath("PoliceCar2")
 collision_shapes = [NodePath("CollisionShape3D"), NodePath("CollisionShape3D2"), NodePath("CollisionShape3D3"), NodePath("CollisionShape3D4")]
@@ -383,6 +383,10 @@ max_torque = 2800.0
 min_max_rpm = 400.0
 absolute_max_rpm = 1250.0
 rpm_acceleration = 100.0
+beacon_a = NodePath("SpotLight3D")
+beacon_b = NodePath("SpotLight3D2")
+beacon_enabled = true
+blink_speed = 2.0
 metadata/_custom_type_script = "uid://bdm4cy4u3orcu"
 
 [node name="PoliceCar2" type="MeshInstance3D" parent="." unique_id=2028115988]
@@ -420,3 +424,39 @@ shape = SubResource("BoxShape3D_7vq2e")
 [node name="CollisionShape3D4" type="CollisionShape3D" parent="." unique_id=589107377]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0107421875, 0.19396973, -1.0887451)
 shape = SubResource("BoxShape3D_4uwnn")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="." unique_id=36503598]
+transform = Transform3D(-0.09126449, -0.012862314, 0.9957437, -0.061677203, 0.9980699, 0.0072393646, -0.9939149, -0.06075398, -0.09188165, -0.1864675, 0.93086493, -0.1463902)
+light_color = Color(1, 0, 0, 1)
+light_energy = 4.5
+spot_range = 4.6
+spot_angle = 83.0
+
+[node name="SpotLight3D2" type="SpotLight3D" parent="." unique_id=1312873704]
+transform = Transform3D(-0.08392611, 0.002041423, -0.9964699, -0.061677206, 0.9980699, 0.0072393664, 0.99456143, 0.062067047, -0.08363821, 0.1697287, 0.92411935, -0.1382513)
+light_color = Color(0, 0, 1, 1)
+light_energy = 4.5
+spot_range = 4.6
+spot_angle = 83.0
+
+[node name="SpotLight3D3" type="SpotLight3D" parent="." unique_id=528012804]
+transform = Transform3D(1, 0, 0, 0, -0.9949693, -0.10018047, 0, 0.10018047, -0.9949693, 0.32883155, 0.27277905, 1.0679057)
+light_energy = 3.5
+spot_range = 15.0
+
+[node name="SpotLight3D4" type="SpotLight3D" parent="." unique_id=632364048]
+transform = Transform3D(1, 0, 0, 0, -0.9949693, -0.10018047, 0, 0.10018047, -0.9949693, -0.3507409, 0.26138145, 1.0717353)
+light_energy = 3.5
+spot_range = 15.0
+
+[node name="AreaLight3D" type="AreaLight3D" parent="." unique_id=457673458]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.35797134, 0.38989273, -1.1841177)
+light_color = Color(0.9682062, 0, 0.042810358, 1)
+light_energy = 3.0
+area_size = Vector2(0.17429483, 0.12520844)
+
+[node name="AreaLight3D2" type="AreaLight3D" parent="." unique_id=1599287695]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3641011, 0.37811005, -1.1865743)
+light_color = Color(0.9682062, 0, 0.042810358, 1)
+light_energy = 3.0
+area_size = Vector2(0.17429483, 0.12520844)
