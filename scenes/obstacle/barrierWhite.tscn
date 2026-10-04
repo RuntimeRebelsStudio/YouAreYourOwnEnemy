@@ -1,0 +1,60 @@
+[gd_scene format=4 uid="uid://b5bdbdhyuarhc"]
+
+[ext_resource type="Script" uid="uid://dawbdelns5vi6" path="res://scenes/obstacle/obstacle.gd" id="1_rexa3"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_5a5wc"]
+points = PackedVector3Array(0.0019359005, 0.00011141277, -0.122999996, 0.23981647, 0.12647426, -0.029208427, 0.24074185, 0.03293579, -0.0036426731, 0.24806176, 0.00011141277, -0.122999996, 0.001967682, 0.00012829516, 0, 0.010136932, 0.12649776, -0.09378813, 0.01018119, 0.12647426, -0.029208427, 0.23986073, 0.12649776, -0.09378813, 0.24802999, 0.00012829516, 0, 0.24078399, 0.03292394, -0.1193625, 0.009213672, 0.03292394, -0.1193625, 0.009255815, 0.03293579, -0.0036426731)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xok2x"]
+resource_name = "red"
+diffuse_mode = 1
+emission_enabled = true
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_acb2i"]
+_surfaces = [{
+"aabb": AABB(0, 0, -0.123, 0.25, 0.1312, 0.123),
+"format": 34896613377,
+"index_count": 84,
+"index_data": PackedByteArray("AAABAAIAAgADAAAABAAAAAMAAQAAAAQAAwAFAAQABQADAAIAAQAEAAYABwAEAAUABAAHAAYABQAIAAcABwAIAAkACQAIAAUACQAGAAcACQAFAAIAAQAGAAoACgAGAAkACwABAAoAAgABAAsACQAMAAoADAAJAAIADQAKAAwACgANAAsADAAOAA0ACwANAA4ADgAMAAIACwAPAAIAAgAPAA4ADgAPAAsA"),
+"name": "red",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 16,
+"vertex_data": PackedByteArray("AAD/LwAAAAAAAAAAAAAAAP//AAAAAAAA////LwAAAAAAAP+PzCwAAP///4/MLAAAAAD//7nBAAAAAP//RT4AAP////9FPgAA/////7nBAAAAAP+PMtMAAAAAAAD//wAA////jzLTAAAAAP8v//8AAP///y///wAA//8AAP//AAA=")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_vg168"]
+resource_name = "barrierRed_Mesh noExport"
+_surfaces = [{
+"aabb": AABB(0, 0, -0.123, 0.25, 0.1312, 0.123),
+"attribute_data": PackedByteArray("/3/wgP9/5J0AAOSdAADwgP//8ID//+Sd/3/knf9/8ID/fy9+/39lvQAAZb0AAC9++b7knf9/5J3/f/CABIsHR1GPeAPzswdH+b7wgKeveAP//yhE//9eg/9/XoP/fyhEAAAfDf9/Hw3/f+SdAADknfp0B0f/f/CA/3/knQVB5J2tcHgDC0wHR1dQeAMFQfCA//+tev9/rXr/f1Yw//9WMP9/8xT/fzpZAAA6WQAA8xT//wAA//9HRP9/R0T/fwAA"),
+"format": 34896613399,
+"index_count": 84,
+"index_data": PackedByteArray("AAABAAIAAgADAAAABAAFAAYABgAHAAQACAAJAAoACgALAAgADAANAA4ADgAPAAwADwAQAAwAEAARAAwAEQASAAwAEAATABEAFAAVABYAFgAXABQAGAAZABoAGgAbABgAHAAdAB4AHgAfABwAHwAgABwAHwAhACAAIQAiACAAHwAjACEAJAAlACYAJgAnACQAKAApACoAKgArACgALAAtAC4ALgAvACwA"),
+"material": SubResource("StandardMaterial3D_xok2x"),
+"name": "red",
+"primitive": 3,
+"uv_scale": Vector4(19.68504, 8.562889, 0, 0),
+"vertex_count": 48,
+"vertex_data": PackedByteArray("AAD/LwAA//8AAAAAAAD/////AAAAAP//////LwAA//////8v//8AgP//AAD//wCAAAAAAP//AIAAAP8v//8AgAAA/4/MLP//AAD/LwAA//////8vAAD//////4/MLP////8AAAAA/7///wAA////v////y////+/////jzLT/7//////ucH/v////4/MLP+/////LwAA/7//////RT7/v////48y082Q////L///zZAAAP8v///NkAAA/48y082Q//8AAAAA//8AAAAAAAD//wAAAAD///////8AAP////8AAP+PMtP/vwAA/y////+/AAAAAP///78AAAAAAAD/vwAA//+5wf+/AAD/j8ws/78AAP//RT7/vwAA/y8AAP+//////7nB/78AAP//ucH/vwAA//9FPv+//////0U+/78AAP//RT7//wAA/4/MLP//////j8ws////////RT7///////+5weqF////jzLT6oUAAP+PMtPqhQAA//+5weqF/3////9/////f////3////9/////f////3////9/////f9rp/3/a6f9/2un/f9rp/38AAP9/AAD/fwAA/38AAP9/AAD/fwAA/38AAP9/AAD///9/////f////3////9//3//P/9//z//f/8//3//P/9/////f////3////9/////f////3////9/////f///////f////3////9/////f/9/Uff/f1H3/39R9/9/Uff///9/////f////3////9/")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_acb2i")
+
+[node name="Box" type="StaticBody3D" unique_id=1566826809]
+script = ExtResource("1_rexa3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=901607326]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_5a5wc")
+
+[node name="barrierRed" type="MeshInstance3D" parent="." unique_id=827243365]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+mesh = SubResource("ArrayMesh_vg168")
+
+[node name="HitBox" type="Area3D" parent="." unique_id=1867456083]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitBox" unique_id=85871871]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_5a5wc")
